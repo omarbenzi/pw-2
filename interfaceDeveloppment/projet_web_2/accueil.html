@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/basic-style.css">
+    
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet"> <!-- google font -->
+    <title>Nom du site à déterminer plus tard</title>
+    <script>
+        $( function() {
+            $( "#accordion" ).accordion({header: "h4"});
+        } );
+    </script>
+    
+</head> 
+<body>  
+    <header>
+        <div class="logo">     
+            <a href="index.html"><img src="images/logo.png" alt="logo" width="100px" height="80px"></a>
+        </div>   
+            <div class="search-box">     
+                <input class="search-txt" type="text" name="search" placeholder="Type to search">
+                <a class="search-btn" href="#"><i class="fas fa-search"></i></a>
+            </div>  
+        <nav>
+            <ul class="srt-menu">
+                <li><a href="index.html">Messages</a></li>
+                <li><a href="#">Connection</a></li>
+                <li><a href="#">favoris</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul> <!-- .srt-menu -->
+        </nav> <!-- nav -->
+    </header>
+    <div class="main">
+        <div class="left-side">
+            <h2>CATÉGORIE</h2>
+            <div id="accordion">
+                <h4>AUTOS/MOTOS</h4>
+                <div>  
+                    <ul>
+                    <li><a href="#">Accessoires, Pneus</a></li>
+                    <li><a href="#">Camions</a></li>
+                    <li><a href="#">Pièces</a></li>
+                    <li><a href="#">Motos</a></li>
+                    </ul>
+                </div>
+                
+                <h4>MAISON</h4>
+                <div>
+                    <ul>
+                    <li><a href="#">Tous les meubles</a></li>
+                    <li><a href="#">Chambres à coucher</a></li>
+                    <li><a href="#">Salons</a></li>
+                    <li><a href="#">Bureaux à domicile</a></li>
+                    <li><a href="#">Matelas</a></li>
+                    <li><a href="#">Cuisines et salles à manger</a></li>
+                    <li><a href="#">Fauteuils de jeu</a></li>
+                    <li><a href="#">Meubles de chambres d'enfants</a></li>
+                    </ul>
+                </div>
+                
+                <h4>LOISIRS</h4>
+                <div>
+                    <ul>
+                    <li><a href="#">Camping et randonnée</a></li>
+                    <li><a href="#">Chasse et pêche</a></li>
+                    <li><a href="#">Trampolines</a></li>
+                    <li><a href="#">Jeux pour la salle de jeux</a></li>
+                    <li><a href="#">Piscines, spas et saunas portables</a></li>
+                    </ul>
+                </div>
+                
+                <h4>SPORTS</h4>
+                <div>
+                    <ul>
+                    <li><a href="#">Bicyclettes et vélos</a></li>
+                    <li><a href="#">Course</a></li>
+                    <li><a href="#">Sport aquatiques</a></li>
+                    <li><a href="#">Au gym</a></li>
+                    <li><a href="#">Sport en salle</a></li>
+                    <li><a href="#">Sports collectifs</a></li>
+                    <li><a href="#">Tennis</a></li>
+                    <li><a href="#">Hockey et patinage</a></li>
+                    </ul>
+                    
+                </div>
+                
+                <h4>ÉLECTRONIQUES</h4>
+                <div>
+                    <ul>
+                    <li><a href="#">Ordinateurs et portables</a></li>
+                    <li><a href="#">Serveurs et stations de travail</a></li>
+                    <li><a href="#">Imprimantes et scanneurs</a></li>
+                    <li><a href="#">Écrans</a></li>
+                    <li><a href="#">Téléphones portables</a></li>
+                    <li><a href="#">Accessoires de gaming</a></li>
+                    <li><a href="#">Drônes</a></li>
+                    <li><a href="#">Divers</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="right-side">
+            <article class="produit">
+                <header class="nom">Produit 1</header>
+                <p class="image">
+                    <img src="images/logo.png">                
+                </p>
+                <p class="description">bla bla bla bla bla</p>
+                <p class="prix"><span>50 $ CA</span></p>
+                <p class="catégorie">Informatique</p>
+                <div class="controle">
+                    <input min="0" max="9" type="number" value="0">
+                    <button class="commander" id="1"></button>
+                </div>            
+            </article>
+            
+            <article class="produit">
+                <header class="nom">Produit 2</header>
+                <p class="image">
+                    <img src="images/logo.png">                
+                </p>
+                <p class="description">bla bla bla bla bla</p>
+                <p class="prix"><span>50 $ CA</span></p>
+                <p class="catégorie">Informatique</p>
+                <div class="controle">
+                    <input min="0" max="9" type="number" value="0">
+                    <button class="commander" id="2"></button>
+                </div>            
+            </article>
+            
+            <article class="produit">
+                <header class="nom">Produit 3</header>
+                <p class="image">
+                    <img src="images/logo.png">                
+                </p>
+                <p class="description">bla bla bla bla bla</p>
+                <p class="prix"><span>50 $ CA</span></p>
+                <p class="catégorie">Informatique</p>
+                <div class="controle">
+                    <input min="0" max="9" type="number" value="0">
+                    <button class="commander" id="3"></button>
+                </div>            
+            </article>
+            
+            <article class="produit">
+                <header class="nom">Produit 4</header>
+                <p class="image">
+                    <img src="images/logo.png">                
+                </p>
+                <p class="description">bla bla bla bla bla</p>
+                <p class="prix"><span>50 $ CA</span></p>
+                <p class="catégorie">Informatique</p>
+                <div class="controle">
+                    <input min="0" max="9" type="number" value="0">
+                    <button class="commander" id="4"></button>
+                </div>            
+            </article>
+            
+            <article class="produit">
+                <header class="nom">Produit 5</header>
+                <p class="image">
+                    <img src="images/logo.png">                
+                </p>
+                <p class="description">bla bla bla bla bla</p>
+                <p class="prix"><span>50 $ CA</span></p>
+                <p class="catégorie">Informatique</p>
+                <div class="controle">
+                    <input min="0" max="9" type="number" value="0">
+                    <button class="commander" id="5"></button>
+                </div>            
+            </article>
+            
+            <article class="produit">
+                <header class="nom">Produit 6</header>
+                <p class="image">
+                    <img src="images/logo.png">                
+                </p>
+                <p class="description">bla bla bla bla bla</p>
+                <p class="prix"><span>50 $ CA</span></p>
+                <p class="catégorie">Informatique</p>
+                <div class="controle">
+                    <input min="0" max="9" type="number" value="0">
+                    <button class="commander" id="6"></button>
+                </div>            
+            </article>
+        </div>
+    </div>
+</body>
+</html>
