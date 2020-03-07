@@ -1,12 +1,13 @@
 <?php
 
-class Auteur extends Entite
+class Annonce extends Entite
 {
     protected $id_auteur = NULL; // nommage identique au champ MySQL correspondant
     protected $nom = NULL; // nommage identique au champ MySQL correspondant
     protected $prenom = NULL; // nommage identique au champ MySQL correspondant
     public function __construct()
-    { }
+    {
+    }
     /**
      * setId_auteur
      *

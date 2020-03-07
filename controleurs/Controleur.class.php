@@ -1,22 +1,24 @@
 <?php
 
-class Controleur {
+class Controleur
+{
 
-    public static $base_uri = "\/tp2-php\/";//"\/tp2-php\/";
-    
+    public static $base_uri = "\/tp2-php\/"; //"\/tp2-php\/";
+
     private $controleurs = array(
         ""          => "ControleurAccueil",
-        "livres"    => "ControleurLivres",
+        "annonce"    => "ControleurAnnonce",
         "admin"     => "ControleurAdmin"
-    ); 
+    );
 
     /**
      * Constructeur qui valide l'URI et instancie le controleur correspondant
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
         try {
-            $regExp = '/^'.self::$base_uri.'([^\?]*)(\?.*)?$/';
+            $regExp = '/^' . self::$base_uri . '([^\?]*)(\?.*)?$/';
             $requestUri = strtolower($_SERVER["REQUEST_URI"]);
             if (preg_match($regExp, $requestUri, $result)) {
                 foreach ($this->controleurs as $uri => $controleur) {
@@ -26,9 +28,8 @@ class Controleur {
                     }
                 }
             }
-            throw new exception ('URL non valide.');
-        }
-        catch (Exception $e) {
+            throw new exception('URL non valide.');
+        } catch (Exception $e) {
             $this->erreur($e->getMessage());
         }
     }
@@ -37,8 +38,8 @@ class Controleur {
      * Méthode qui affiche une page d'erreur
      *
      */
-    private function erreur($msgErreur) {
+    private function erreur($msgErreur)
+    {
         $vue = new Vue("Erreur", array('msgErreur' => $msgErreur), 'gabaritErreur');
     }
-
 }
