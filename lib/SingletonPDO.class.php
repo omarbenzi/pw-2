@@ -5,20 +5,11 @@ class SingletonPDO
     private $PDOInstance = null;
     private static $instance = null;
 
-    // const DEFAULT_SQL_HOST = 'localhost';
-    // const DEFAULT_SQL_DBN = 'tp-2';
-    // const DEFAULT_SQL_USER = 'root';
-    // const DEFAULT_SQL_PASS = '';
+
     const DEFAULT_SQL_HOST = 'localhost';
-<<<<<<< HEAD
     const DEFAULT_SQL_DBN = 'mydb';
     const DEFAULT_SQL_USER = 'root';
     const DEFAULT_SQL_PASS = '';
-=======
-    const DEFAULT_SQL_DBN = 'e1995039';
-    const DEFAULT_SQL_USER = 'e1995039';
-    const DEFAULT_SQL_PASS = '81daxuBq8dNrrOoGZSy9';
->>>>>>> d5c5bfafdb8d6a3d3d6d6608c2850b00bd5a73c3
 
     private function __construct()
     {
@@ -32,12 +23,8 @@ class SingletonPDO
     }
 
     private function __clone()
-<<<<<<< HEAD
     {
     }
-=======
-    { }
->>>>>>> d5c5bfafdb8d6a3d3d6d6608c2850b00bd5a73c3
 
     public static function getInstance()
     {
