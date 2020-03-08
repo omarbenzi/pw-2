@@ -6,7 +6,8 @@ INSERT INTO `mydb`.`image`
 
 INSERT INTO `mydb`.`ville`
 (`idVille`, `nomVille`, `codePostale`) VALUES
-(NULL, 'Montreal', 'H2S3W2');
+(NULL, 'Montreal', 'H2S3W2'),
+(NULL, 'LAval', 'H2S3W2');
 
 
 
