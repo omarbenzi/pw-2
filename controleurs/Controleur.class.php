@@ -3,7 +3,7 @@
 class Controleur
 {
 
-    public static $base_uri = "\/tp2-php\/"; //"\/tp2-php\/";
+    public static $base_uri = "\/pw-2\/"; //"\/tp2-php\/";
 
     private $controleurs = array(
         ""          => "ControleurAccueil",
