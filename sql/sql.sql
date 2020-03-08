@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`ville` (
 DROP TABLE IF EXISTS `mydb`.`image` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`image` (
-  `idimage` INT NOT NULL AUTO_INCREMENT COMMENT ' ',
+  `idimage` INT NOT NULL AUTO_INCREMENT ,
   `lien` VARCHAR(45) NULL,
   PRIMARY KEY (`idimage`))
 ENGINE = InnoDB;
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `nom` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
   `telephone` INT NULL,
-  `dateInscription` DATETIME NULL,
+  `dateInscription` TIMESTAMP ,
   `password` VARCHAR(45) NULL,
   `admin` INT NULL,
   `ville_idVille` INT NOT NULL,
@@ -79,7 +79,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`categorie` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`categorie` (
-  `idcategorie` INT NOT NULL,
+  `idcategorie` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   PRIMARY KEY (`idcategorie`))
 ENGINE = InnoDB;
@@ -91,7 +91,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`sous-categorie` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`sous-categorie` (
-  `idsous-categorie` INT NOT NULL,
+  `idsous-categorie` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   `id_categorie` INT NOT NULL,
   PRIMARY KEY (`idsous-categorie`),
@@ -110,7 +110,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`annonce` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`annonce` (
-  `idarticle` INT NOT NULL,
+  `idarticle` INT NOT NULL AUTO_INCREMENT,
   `titre` VARCHAR(45) NULL,
   `description` VARCHAR(255) NULL,
   `prix` INT NULL,
@@ -146,7 +146,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`favoris` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`favoris` (
-  `idfavoris` INT NOT NULL,
+  `idfavoris` INT NOT NULL AUTO_INCREMENT,
   `user_iduser` INT NOT NULL,
   `annonce_idarticle` INT NOT NULL,
   PRIMARY KEY (`idfavoris`, `user_iduser`, `annonce_idarticle`),
@@ -171,7 +171,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`message` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`message` (
-  `idmessage` INT NOT NULL,
+  `idmessage` INT NOT NULL AUTO_INCREMENT,
   `annonce_idarticle` INT NOT NULL,
   `user_iduser` INT NOT NULL,
   PRIMARY KEY (`idmessage`, `annonce_idarticle`, `user_iduser`),
@@ -207,3 +207,6 @@ USE `mydb`;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
