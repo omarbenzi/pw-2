@@ -8,14 +8,14 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- DATABASE mydb
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
+DROP DATABASE IF EXISTS `mydb` ;
 
 -- -----------------------------------------------------
--- Schema mydb
+-- DATABASE mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+CREATE DATABASE IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`ville` (
   `idVille` INT NOT NULL AUTO_INCREMENT,
   `nomVille` VARCHAR(255) NULL,
   `codePostale` VARCHAR(45) NULL,
-  PRIMARY KEY (`idVille`));
+  PRIMARY KEY (`idVille`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -51,10 +52,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `iduser` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
-  `telephone` INT NULL,
+  `telephone` VARCHAR(45) NULL,
   `dateInscription` TIMESTAMP ,
   `password` VARCHAR(45) NULL,
-  `admin` INT NULL,
+  `admin` INT(1) NULL,
   `ville_idVille` INT NOT NULL,
   `image_idimage` INT NOT NULL,
   PRIMARY KEY (`iduser`),
@@ -172,6 +173,4 @@ USE `mydb`;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
 
