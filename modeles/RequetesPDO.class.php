@@ -115,7 +115,7 @@ class RequetesPDO
             if ($oPDOStatement->rowCount() == 0) {
                 return "Ajout non effectué.";
             } else {
-                return 0;
+                return true;
             }
         } catch (Exception $e) {
             if ($e->getCode() === self::ERREUR_MYSQL_INTEGRITY_CONSTRAINT_VIOLATION) {
