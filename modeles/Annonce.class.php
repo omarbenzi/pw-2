@@ -39,6 +39,49 @@ class Annonce extends Entite
         }
         $this->prix = trim($prix);
     }
+
+
+    protected function setImage(array $image)
+    {
+        // Check if file was uploaded without errors
+        if (isset($_FILES["photo"]) && $_FILES["photo"]["error"] == 0) {
+            $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+            $filename = $_FILES["photo"]["name"];
+            $filetype = $_FILES["photo"]["type"];
+            $filesize = $_FILES["photo"]["size"];
+
+            // Verify file extension
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+            if (!array_key_exists($ext, $allowed)) {
+                $this->erreursHydrate['image'] = "extention non autorisé";
+            }
+
+            // Verify file size - 5MB maximum
+            $maxsize = 5 * 1024 * 1024;
+            if ($filesize > $maxsize) {
+                $this->erreursHydrate['image'] = "la taille de l'image ne doit pas depasé 5MB";
+            }
+
+            // Verify MYME type of the file
+            if (in_array($filetype, $allowed)) {
+                // Check whether file exists before uploading it
+                if (file_exists("upload/" . $filename)) {
+                    echo $filename . " is already exists.";
+                } else {
+                    move_uploaded_file($_FILES["photo"]["tmp_name"], "upload/" . $filename);
+                    echo "Your file was uploaded successfully.";
+                }
+            } else {
+                $this->erreursHydrate['image'] = "Error: There was a problem uploading your file. Please try again.";
+            }
+        } else {
+            $this->erreursHydrate['image'] = "une erreure s'est produite.";
+        }
+    }
+
+
+
+
     protected function setSponsorise($sponsorise = 0)
     {
 
@@ -80,6 +123,7 @@ class Annonce extends Entite
         }
         return self::$reqPDOInstance;
     }
+
 
 
 
