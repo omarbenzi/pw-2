@@ -8,7 +8,6 @@ class Annonce extends Entite
     protected $prix = NULL;
     protected $sponsorise = NULL;
     protected $lien;
-    private static $reqPDOInstance = null;
 
     public function __construct()
     {
@@ -106,20 +105,13 @@ class Annonce extends Entite
     {
 
         try {
-            $instance = $this->getRequestesPDO();
+            $instance = $this->getRequestesPDOInstance();
             $instance->ajouterItem($table, $champs);
         } catch (PDOException $e) {
             throw $e;
         }
     }
 
-    private function getRequestesPDO()
-    {
-        if (is_null(self::$reqPDOInstance)) {
-            self::$reqPDOInstance = new RequetesPDO();
-        }
-        return self::$reqPDOInstance;
-    }
 
 
 

@@ -5,6 +5,8 @@
 abstract class Entite
 { // une classe abstraite ne peut pas être instanciée
     protected $erreursHydrate;
+    private static $reqPDOInstance = null;
+
     /**
      * hydrater les propriétés de l'objet avec les variables correspondantes
      * du tableau donnees
@@ -39,5 +41,13 @@ abstract class Entite
         }
         unset($prop['erreursHydrate']);
         return $prop;
+    }
+
+    public function getRequestesPDOInstance()
+    {
+        if (is_null(self::$reqPDOInstance)) {
+            self::$reqPDOInstance = new RequetesPDO();
+        }
+        return self::$reqPDOInstance;
     }
 }
