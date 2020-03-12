@@ -55,7 +55,7 @@ class Annonce extends Entite
             // Verify file extension
             $ext = pathinfo($filename, PATHINFO_EXTENSION);
             if (!array_key_exists($ext, $allowed)) {
-                $this->erreursHydrate['image'] = "extention non autorisé";
+                $this->erreursHydrate['image'] = "extention non autorisée";
             }
 
             // Verify file size - 5MB maximum
