@@ -7,7 +7,9 @@ class Annonce extends Entite
     protected $description = NULL;
     protected $prix = NULL;
     protected $sponsorise = NULL;
+    protected $lien;
     private static $reqPDOInstance = null;
+
     public function __construct()
     {
     }
@@ -44,11 +46,11 @@ class Annonce extends Entite
     protected function setImage(array $image)
     {
         // Check if file was uploaded without errors
-        if (isset($_FILES["photo"]) && $_FILES["photo"]["error"] == 0) {
+        if (isset($image["photo"]) && $image["photo"]["error"] == 0) {
             $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-            $filename = $_FILES["photo"]["name"];
-            $filetype = $_FILES["photo"]["type"];
-            $filesize = $_FILES["photo"]["size"];
+            $filename = $image["photo"]["name"];
+            $filetype = $image["photo"]["type"];
+            $filesize = $image["photo"]["size"];
 
             // Verify file extension
             $ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -64,13 +66,8 @@ class Annonce extends Entite
 
             // Verify MYME type of the file
             if (in_array($filetype, $allowed)) {
-                // Check whether file exists before uploading it
-                if (file_exists("upload/" . $filename)) {
-                    echo $filename . " is already exists.";
-                } else {
-                    move_uploaded_file($_FILES["photo"]["tmp_name"], "upload/" . $filename);
-                    echo "Your file was uploaded successfully.";
-                }
+                $this->lien =   "upload/" . $filename . '-' . uniqid();
+                move_uploaded_file($_FILES["photo"]["tmp_name"],  $this->lien);
             } else {
                 $this->erreursHydrate['image'] = "Error: There was a problem uploading your file. Please try again.";
             }
@@ -105,7 +102,7 @@ class Annonce extends Entite
             throw $e;
         }
     }
-    public function addAnnonce($table = 'annonce', $champs)
+    public function addAnnonce($table = 'annonce', $champs) // a retravailler///
     {
 
         try {
