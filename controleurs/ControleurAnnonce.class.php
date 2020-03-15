@@ -1,6 +1,6 @@
 <?php
 
-class ControleurLivres
+class ControleurAnnonce
 {
     private $tri_type = "annee";
     private $tri_ordre = "desc";
@@ -12,41 +12,26 @@ class ControleurLivres
     public function __construct()
     {
         try {
-            if (isset($_GET['action']) && $_GET['action'] === 'tri') {
+            $this->item   = isset($_GET['item'])   ? $_GET['item']   : "livre";
+            $this->action = isset($_GET['action']) ? $_GET['action'] : "get";
+            $this->id     = isset($_GET['id'])     ? $_GET['id']     : "";
 
-                if (!in_array($_POST["type"], ["titre", "auteur", "annee"])) throw new exception('Type de tri non valide.', 1); // input verification
-                if (!in_array($_POST["ordre"], ["asc", "desc"])) throw new exception('Ordre de tri non valide.', 1); // input verification valable meme pour mysql plus loin 
-                $this->tri_type   = isset($_POST['type'])   ? $_POST['type'] : "annee";
-                $this->tri_ordre  = isset($_POST['ordre'])   ? $_POST['ordre'] : "desc";
-                $this->getLivresTries($this->tri_type, $this->tri_ordre);
-            } elseif (isset($_GET['action']) && $_GET['action'] === 'recherche') {
-
-                if (isset($_POST['annee']) || isset($_POST['titreContient'])) {
-
-                    if (trim($_POST['annee']) !== '' || trim($_POST['titreContient']) !== '') {
-
-                        $this->recherche_annee          = trim($_POST['annee']) === ''  ? null : $_POST['annee'];
-                        $this->recherche_titreContient  = trim($_POST['titreContient']) === ''  ? null : $_POST['titreContient'];
-                        $regExp = '/\d{4}/';
-                        if (!is_null($this->recherche_annee)) {
-
-                            if (!preg_match($regExp, $this->recherche_annee)) throw new Exception("Année non valide.", 2);
-                            if ($this->recherche_annee < 1500 || $this->recherche_annee > date("Y")) throw new exception("Année hors de la période disponible.", 2);
-                        }
-                        $this->getLivresPar($this->recherche_annee, $this->recherche_titreContient);
-                    } else {
-                        $vue = new Vue("LivresRecherche", array(
-                            'livres' => null,
-                        ));
-                    }
-                } else {
-                    $vue = new Vue("LivresRecherche", array(
-                        'livres' => null,
-                    ));
+            if (in_array($this->item, ["administrateur", "livre", "auteur"])) {
+                if (in_array($this->action, ["get", "ajouter", "modifier", "supprimer"])) {
+                    $item   = ucfirst($this->item);
+                    $action = $this->action;
+                    if ($action === "get") $item .= "s";
+                    $methode = $action . $item;
+                    $this->$methode();
+                    exit;
                 }
-            } else {
-                $this->getLivres();
+                if ($this->action === "deconnecter") {
+                    $this->deconnecter();
+                    exit;
+                }
+                throw new exception("Action invalide");
             }
+            throw new exception("Item invalide");
         } catch (Exception $e) {
             $this->erreur($e->getMessage(), $e->getCode());
         }
