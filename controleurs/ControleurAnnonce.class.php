@@ -12,17 +12,19 @@ class ControleurAnnonce
     public function __construct()
     {
         try {
-            $this->item   = isset($_GET['item'])   ? $_GET['item']   : "livre";
+            $this->item   = isset($_GET['item'])   ? $_GET['item']   : "getAnnoncesSponsorises";
             $this->action = isset($_GET['action']) ? $_GET['action'] : "get";
             $this->id     = isset($_GET['id'])     ? $_GET['id']     : "";
 
-            if (in_array($this->item, ["administrateur", "livre", "auteur"])) {
+            if (in_array($this->item, ["annonce", "getAnnoncesSponsorises"])) {
                 if (in_array($this->action, ["get", "ajouter", "modifier", "supprimer"])) {
                     $item   = ucfirst($this->item);
                     $action = $this->action;
                     if ($action === "get") $item .= "s";
-                    $methode = $action . $item;
-                    $this->$methode();
+                    $action = $action . $item;
+                    new Annonce($action);
+                    // $methode = $action . $item;
+                    // $this->$methode();
                     exit;
                 }
                 if ($this->action === "deconnecter") {

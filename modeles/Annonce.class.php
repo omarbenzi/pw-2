@@ -9,8 +9,10 @@ class Annonce extends Entite
     protected $sponsorise = NULL;
     protected $lien;
 
-    public function __construct()
+    public function __construct($action)
     {
+        echo $action;
+        exit;
     }
 
     protected function setIdarticle($idarticle = NULL)
@@ -84,7 +86,7 @@ class Annonce extends Entite
         $this->sponsorise = ($sponsorise);
     }
 
-    public function getAnnonceSponsorise()
+    public function getAnnoncesSponsorises()
     {
         try {
             $sPDO = SingletonPDO::getInstance();
