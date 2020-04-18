@@ -75,7 +75,7 @@
                 <p class="description"><?= $annoncesSponsoise['description'] ?></p>
                 <p class="prix"><span><?= $annoncesSponsoise['prix'] ?></span></p>
                 <div class="date">
-                    <p>Date: <span><?= $annoncesSponsoise['date'] ?></span></p>
+                    <p>Date: <span><?= $annoncesSponsoise['datePublication'] ?></span></p>
                 </div>
             </article>
         <?php endforeach;
