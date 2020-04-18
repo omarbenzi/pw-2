@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="<?php echo str_replace("\\", "", Controleur::$base_uri) ?>/styles/basic-style.css">
     <link rel="stylesheet" href="<?php echo str_replace("\\", "", Controleur::$base_uri) ?>/styles/normalize.css">
+    <link rel="stylesheet" href="<?php echo str_replace("\\", "", Controleur::$base_uri) ?>/styles/basic-style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -17,12 +17,22 @@
 <body>
     <div id="global">
         <header>
-            <h1>Bibliothèque</h1>
-            <ul>
-                <li><a class="<?php echo $this->vue === "Accueil" ? "active" : ""; ?>" href=".">Accueil</a></li>
-                <li><a class="<?= ($this->vue === "Livres" || $this->vue === "LivresTri") ? "active" : ""; ?>" href="livres">Liste des livres</a></li>
-                <li><a class="<?php echo $this->vue === "LivresRecherche" ? "active" : ""; ?>" href="livres?action=recherche">Recherche</a></li>
-            </ul>
+            <div class="logo">
+                <a href="index.html"><img src="<?php echo str_replace("\\", "", Controleur::$base_uri) ?>images/logo.png" alt="logo" width="80px" height="50px"></a>
+            </div>
+            <div class="search-box">
+                <input class="search-txt" type="text" name="search" placeholder="Type to search">
+                <a class="search-btn" href="#"><i class="fas fa-search"></i></a>
+            </div>
+            <nav>
+                <ul class="srt-menu">
+                    <li id="home"><a href="#home" class="homeIcon">Home</a></li>
+                    <li><a href="#">Messages</a></li>
+                    <li><a href="#">Connection</a></li>
+                    <li><a href="#">favoris</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul> <!-- .srt-menu -->
+            </nav> <!-- nav -->
         </header>
         <div id="contenu">
             <?php echo $contenu ?>
