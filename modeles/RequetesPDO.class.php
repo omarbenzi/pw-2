@@ -290,4 +290,38 @@ class RequetesPDO
             throw $e;
         }
     }
+    public function getAnnoncesSponsorises()
+    {
+        try {
+            $sPDO = SingletonPDO::getInstance();
+            $oPDOStatement = $sPDO->prepare(
+                "SELECT * FROM annonce WHERE annonce.sponsorise = (1) "
+            );
+            $oPDOStatement->execute();
+            if ($oPDOStatement->rowCount() == 0) {
+                throw new exception('Aucun résultat..', 3);
+            }
+            $autuers = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
+            return $autuers;
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+    public function getCategories()
+    {
+        try {
+            $sPDO = SingletonPDO::getInstance();
+            $oPDOStatement = $sPDO->prepare(
+                "SELECT * FROM annonce WHERE annonce.sponsorise = (1) "
+            );
+            $oPDOStatement->execute();
+            if ($oPDOStatement->rowCount() == 0) {
+                throw new exception('Aucun résultat..', 3);
+            }
+            $autuers = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
+            return $autuers;
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
 }

@@ -14,6 +14,17 @@ class ControleurAccueil
      */
     public function accueil()
     {
-        $vue = new Vue("Accueil");
+        try {
+            $reqPDO = new RequetesPDO();
+            $annoncesSponsoises = $reqPDO->getAnnoncesSponsorises();
+            $categories = $reqPDO->getCategories();
+
+            $vue = new Vue("Accueil", array(
+                'annoncesSponsoises' => $annoncesSponsoises,
+                'categories'   => $this->categories,
+            ));
+        } catch (Exception $e) {
+            $this->erreur($e->getMessage(), $e->getCode());
+        }
     }
 }
