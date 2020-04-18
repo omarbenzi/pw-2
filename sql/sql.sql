@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`annonce` (
   `titre` VARCHAR(45) NULL,
   `description` VARCHAR(255) NULL,
   `prix` INT NULL,
+  `datePublication` TIMESTAMP ,
   `user_iduser` INT NOT NULL,
   `sponsorise` INT NULL,
   `sous-categorie_idsous-categorie` INT NOT NULL,
