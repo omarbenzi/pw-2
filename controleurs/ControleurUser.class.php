@@ -498,7 +498,7 @@ class ControleurUser extends Controleur
       */
      private function encrypteMdp($admin)
      {
-          $admin['mdp'] = password_hash($admin['mdp'], PASSWORD_DEFAULT);
+          $admin['password'] = password_hash($admin['password'], PASSWORD_DEFAULT);
           return $admin;
      }
 

@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `email` VARCHAR(45) NULL,
   `telephone` VARCHAR(45) NULL,
   `dateInscription` TIMESTAMP ,
-  `password` VARCHAR(45) NULL,
+  `password` VARCHAR(2000) NULL,
   `admin` INT(1) NULL,
   `ville_idVille` INT NOT NULL,
   `image_idimage` INT NOT NULL,
