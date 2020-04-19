@@ -1,6 +1,6 @@
 <?php
 
-class Admin extends Entite
+class User extends Entite
 {
     protected $nom = NULL; // nommage identique au champ MySQL correspondant
     protected $password = NULL; // nommage identique au champ MySQL correspondant
@@ -24,10 +24,10 @@ class Admin extends Entite
     protected function setnom($nom = NULL)
     {
         $regExp = '/\S{8,}/';
-        if (!preg_match($regExp, $identifiant)) {
+        if (!preg_match($regExp, $nom)) {
             $this->erreursHydrate['nom'] = "Au moins 8 caractères.";
         }
-        $this->nom = trim($identifiant);
+        $this->nom = trim($nom);
     }
 
     /**
@@ -56,7 +56,7 @@ class Admin extends Entite
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-            $this->erreursHydrate['email'] =  "Meail non valide.";
+            $this->erreursHydrate['email'] =  "Eail non valide.";
         }
 
         $this->password = trim($email);

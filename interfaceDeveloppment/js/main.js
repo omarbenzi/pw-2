@@ -20,10 +20,5 @@ inputs.forEach(input => {
 });
 
 
-$('.inscription').click('click', function (params) {
-	console.log('kk');
 
-	$('#myForm').submit();
-
-})
 

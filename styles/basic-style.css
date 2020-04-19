@@ -13,9 +13,9 @@ body {
     /* font-family: 'Poppins', sans-serif; */
 }
 
-.body-connection {
+/* .body-connection {
     overflow: hidden;
-}
+} */
 
 a {
     color: white;
@@ -598,6 +598,9 @@ form{
 .btn-delete > button:active {
     transform: scale(0.98);
     box-shadow: 6px 6px 18px 2px rgba(0, 0, 0, 0.23); 
+}
+.erreur{
+    color: red;
 }
 
 

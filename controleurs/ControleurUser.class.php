@@ -37,6 +37,8 @@ class ControleurUser extends Controleur
                     throw new exception("Action invalide");
                }
                throw new exception("Item invalide");
+          } elseif (isset($_POST['action']) && $_POST['action'] == 'ajouter' && isset($_POST['item']) && $_POST['item'] == 'user') {
+               $this->ajouterUser();
           } else {
                $this->connecter();
           }
@@ -103,27 +105,27 @@ class ControleurUser extends Controleur
      {
           try {
 
-               if (isset($_POST['Envoyer'])) {
+               if (isset($_POST['envoyer'])) {
 
                     $erreursHydrate = null;
                     $erreurMysql = null;
                     $oUser = new User();
-                    $erreursHydrate = $oUser->hydrate(["nom" => $_POST['nom'], "prenom" => $_POST['prenom']]);
+                    $erreursHydrate = $oUser->hydrate(["nom" => $_POST['nom'], "password" => $_POST['password'], "email" => $_POST['email']]);
                     if (count($erreursHydrate) !== 0) {
                          $user = $oUser->getItem();
-                         $vue = new Vue("UserAjoutAuteur", array(
+                         $vue = new Vue("UserAjoutUser", array(
                               'user' => $user,
                               'erreursHydrate' => $erreursHydrate,
                          ), 'gabarit');
                     } else {
-                         $auteur = $oUser->getItem();
+                         $user = $oUser->getItem();
                          $reqPDO = new RequetesPDO();
-                         if (!$erreurMysql = $reqPDO->ajouterItem('user', $auteur)) { // pas d'erruer mysql 
-                              $this->getAuteurs();
+                         if (!$erreurMysql = $reqPDO->ajouterItem('user', $user)) { // pas d'erruer mysql 
+                              new ControleurAnnonce(); // retour a la page d'accueil
                          } else { // ajout non effectué 
                               $vue = new Vue("AdminListeAuteurs", array(
                                    "erreurMysql" => $erreurMysql,
-                                   'auteurs' => $auteurs,
+                                   'user' => $user,
                               ), 'gabaritAdmin');
                          }
                     }

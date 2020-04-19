@@ -37,8 +37,18 @@
         </div>
     </div>
 
-    <form id="myForm" action="<?php echo "http://" . $_SERVER['SERVER_NAME'] ?>/pw2/pw-2/annonce?action=ajouter&item=user" method="get"></form>
+    <form id="myForm" action="user" method="post">
+        <input type="hidden" name="item" value="user">
+        <input type="hidden" name="action" value="ajouter">
+    </form>
     <script type="text/javascript" src="js/main.js"></script>
+    <script>
+        $('.inscription').click('click', function(params) {
+
+            $('#myForm').submit();
+
+        })
+    </script>
 
 </body>
 
