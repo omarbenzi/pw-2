@@ -31,12 +31,15 @@
                         <input type="password" class="input" <?= (isset($admin['mdp'])) ? $admin['mdp'] : null ?>>
                     </div>
                 </div>
-                <input type="submit" class="btn" value="Login">
-                <input type="submit" class="btn" value="Sign In">
+                <input type="submit" class="btn" value="Connexion">
+                <input type="button" class="btn inscription" value="S'inscrire">
             </form>
         </div>
     </div>
+
+    <form id="myForm" action="<?php echo "http://" . $_SERVER['SERVER_NAME'] ?>/pw2/pw-2/annonce?action=ajouter&item=user" method="get"></form>
     <script type="text/javascript" src="js/main.js"></script>
+
 </body>
 
 
