@@ -24,16 +24,16 @@
 
     <div class="right-side">
 
-        <?php foreach ($annoncesSponsoises as $annoncesSponsoise) : ?>
+        <?php foreach ($annonces as $annonce) : ?>
             <article class="produit">
-                <h4 class="nom"><?= $annoncesSponsoise['titre'] ?></h4>
+                <h4 class="nom"><?= $annonce['titre'] ?></h4>
                 <p class="image">
                     <img src="images/logo.png">
                 </p>
-                <p class="description"><?= $annoncesSponsoise['description'] ?></p>
-                <p class="prix"><span><?= $annoncesSponsoise['prix'] ?></span></p>
+                <p class="description"><?= $annonce['description'] ?></p>
+                <p class="prix"><span><?= $annonce['prix'] ?></span></p>
                 <div class="date">
-                    <p>Date: <span><?= $annoncesSponsoise['datePublication'] ?></span></p>
+                    <p>Date: <span><?= $annonce['datePublication'] ?></span></p>
                 </div>
             </article>
         <?php endforeach;

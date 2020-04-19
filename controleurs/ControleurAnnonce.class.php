@@ -47,7 +47,7 @@ class ControleurAnnonce
             $annoncesSponsoises = array_map(array($this, 'arrangeDate'), $annoncesSponsoises);
             $this->arrangeCategorie($categories);
             $vue = new Vue("Accueil", array(
-                'annoncesSponsoises' => $annoncesSponsoises,
+                'annonces' => $annoncesSponsoises,
                 'categories'   => $this->categories,
             ));
         } catch (Exception $e) {
