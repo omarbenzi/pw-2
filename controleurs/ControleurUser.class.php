@@ -1,5 +1,5 @@
 <?php
-class ControleurAdmin extends Controleur
+class ControleurUser extends Controleur
 {
      private $item    = "livre";
      private $action  = "get";
@@ -61,9 +61,9 @@ class ControleurAdmin extends Controleur
                     ), 'gabaritAdmin');
                }
           } else {
-               $vue = new Vue("AdminConnexion", array(
+               $vue = new Vue("userConnexion", array(
                     '' => null,
-               ), 'gabaritAdmin');
+               ), 'gabarit');
           }
      }
      /**

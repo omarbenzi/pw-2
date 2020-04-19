@@ -8,7 +8,7 @@ class Controleur
     private $controleurs = array(
         ""          => "ControleurAccueil",
         "annonce"    => "ControleurAnnonce",
-        "admin"     => "ControleurAdmin"
+        "user"     => "ControleurUser"
     );
 
     /**
