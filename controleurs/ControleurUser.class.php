@@ -21,7 +21,7 @@ class ControleurUser extends Controleur
                $this->action = isset($_GET['action']) ? $_GET['action'] : "get";
                $this->id     = isset($_GET['id'])     ? $_GET['id']     : "";
 
-               if (in_array($this->item, ["administrateur", "livre", "auteur"])) {
+               if (in_array($this->item, ["administrateur", "livre", "user"])) {
                     if (in_array($this->action, ["get", "ajouter", "modifier", "supprimer"])) {
                          $item   = ucfirst($this->item);
                          $action = $this->action;
@@ -95,11 +95,11 @@ class ControleurUser extends Controleur
           }
      }
      /**
-      * ajouter Auteur
+      * ajouter un user
       *
       * @return void
       */
-     private function ajouterAuteur()
+     private function ajouterUser()
      {
           try {
 
@@ -107,18 +107,18 @@ class ControleurUser extends Controleur
 
                     $erreursHydrate = null;
                     $erreurMysql = null;
-                    $oAuteur = new Auteur();
-                    $erreursHydrate = $oAuteur->hydrate(["nom" => $_POST['nom'], "prenom" => $_POST['prenom']]);
+                    $oUser = new User();
+                    $erreursHydrate = $oUser->hydrate(["nom" => $_POST['nom'], "prenom" => $_POST['prenom']]);
                     if (count($erreursHydrate) !== 0) {
-                         $auteur = $oAuteur->getItem();
-                         $vue = new Vue("AdminAjoutAuteur", array(
-                              'auteur' => $auteur,
+                         $user = $oUser->getItem();
+                         $vue = new Vue("UserAjoutAuteur", array(
+                              'user' => $user,
                               'erreursHydrate' => $erreursHydrate,
-                         ), 'gabaritAdmin');
+                         ), 'gabarit');
                     } else {
-                         $auteur = $oAuteur->getItem();
+                         $auteur = $oUser->getItem();
                          $reqPDO = new RequetesPDO();
-                         if (!$erreurMysql = $reqPDO->ajouterItem('auteur', $auteur)) { // pas d'erruer mysql 
+                         if (!$erreurMysql = $reqPDO->ajouterItem('user', $auteur)) { // pas d'erruer mysql 
                               $this->getAuteurs();
                          } else { // ajout non effectué 
                               $vue = new Vue("AdminListeAuteurs", array(
@@ -128,9 +128,9 @@ class ControleurUser extends Controleur
                          }
                     }
                } else {
-                    $vue = new Vue("AdminAjoutAuteur", array(
-                         'auteurs' => null,
-                    ), 'gabaritAdmin');
+                    $vue = new Vue("UserAjoutAuteur", array(
+                         'user' => null,
+                    ), 'gabarit');
                }
           } catch (Exception $e) {
                $this->erreurAdmin($e->getMessage());
@@ -148,16 +148,16 @@ class ControleurUser extends Controleur
                if (isset($_POST['Envoyer'])) {
                     $erreursHydrate = null;
                     $erreurMysql = null;
-                    $oAuteur = new Auteur(); // instanciation d'un objet
-                    $erreursHydrate = $oAuteur->hydrate(["id_auteur" => $_POST['id_auteur'], "nom" => $_POST['nom'], "prenom" => $_POST['prenom']]);
+                    $oUser = new Auteur(); // instanciation d'un objet
+                    $erreursHydrate = $oUser->hydrate(["id_auteur" => $_POST['id_auteur'], "nom" => $_POST['nom'], "prenom" => $_POST['prenom']]);
                     if (count($erreursHydrate) !== 0) { // erreur d'hydratation 
-                         $auteur = $oAuteur->getItem();
+                         $auteur = $oUser->getItem();
                          $vue = new Vue("AdminModificationAuteur", array(
                               'auteur' => $auteur,
                               'erreursHydrate' => $erreursHydrate,
                          ), 'gabaritAdmin');
                     } else {
-                         $auteur = $oAuteur->getItem();
+                         $auteur = $oUser->getItem();
                          $reqPDO = new RequetesPDO();
                          if (!$erreurMysql = $reqPDO->modifierItem('auteur', $auteur, $this->id)) { // pas d'erruer mysql 
                               $this->getAuteurs();
