@@ -123,10 +123,12 @@ class ControleurUser extends Controleur
                     } else {
                          $user = $oUser->getItem();
                          $user = $this->encrypteMdp($user);
-
                          $reqPDO = new RequetesPDO();
                          if ($erreurMysql = $reqPDO->ajouterItem('user', $user) == true) { // pas d'erruer mysql 
-                              $this->connecter(); // retour a la page de connexion
+                              $vue = new Vue("UserConnexion", array(
+                                   '' => null,
+                                   'msgErreur' => 'Votre compte a été crée',
+                              ), 'gabarit'); // retour a la page de connexion
                          } else { // ajout non effectué 
                               var_dump($erreurMysql);
                               $vue = new Vue("UserAjoutUser", array(
@@ -516,14 +518,7 @@ class ControleurUser extends Controleur
       */
      private function decrypteMdp($admin)
      {
-          $admin['mdp'] = openssl_decrypt(
-               $admin['mdp'],
-               $this->opensslMethode,
-               $this->opensslMdp,
-               NULL,
-               $this->opensslVecteurInitialisation
-          );
-
+          $admin['mdp'] = password_hash($admin['mdp'], PASSWORD_DEFAULT);
           return $admin;
      }
 }
