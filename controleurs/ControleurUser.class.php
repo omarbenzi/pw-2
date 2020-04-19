@@ -52,15 +52,14 @@ class ControleurUser extends Controleur
      {
           if (isset($_POST['Envoyer'])) {
                $reqPDO = new RequetesPDO();
-               if ($reqPDO->getConnexionAdministrateur($_POST['identifiant'], $_POST['mdp'])) {
-                    $this->getLivres();
-                    $_SESSION['identifiant'] = $_POST['identifiant'];
+               if ($reqPDO->getConnexion($_POST['email'], $_POST['password'])) {
+                    new Vue('accueil');
                } else {
-                    list($admin['identifiant'], $admin['mdp']) = [$_POST['identifiant'], $_POST['mdp']];
-                    $vue = new Vue("AdminConnexion", array(
-                         'admin' => $admin,
+                    list($user['email'], $user['password']) = [$_POST['email'], $_POST['password']];
+                    $vue = new Vue("UserConnexion", array(
+                         'user' => $user,
                          'msgErreur' => 'Identifiant ou mot de passe incorrect.',
-                    ), 'gabaritAdmin');
+                    ), 'gabarit');
                }
           } else {
                $vue = new Vue("UserConnexion", array(

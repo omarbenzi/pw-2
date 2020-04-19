@@ -191,7 +191,7 @@ class RequetesPDO
             throw $e;
         }
     }
-    public function getConnexionAdministrateur($identifiant, $mdp)
+    public function getConnexion($email, $mdp)
     {
         try {
             $opensslMethode = "AES-256-CBC";
@@ -200,23 +200,23 @@ class RequetesPDO
 
             $sPDO = SingletonPDO::getInstance();
             $oPDOStatement = $sPDO->prepare(
-                "SELECT mdp 
-                FROM administrateur WHERE identifiant = :identifiant"
+                "SELECT password,admin,nom 
+                FROM user WHERE email = :email"
             );
-            $oPDOStatement->bindValue(":identifiant", $identifiant, PDO::PARAM_STR);
+            $oPDOStatement->bindValue(":email", $email, PDO::PARAM_STR);
             $oPDOStatement->execute();
             if ($oPDOStatement->rowCount() == 0) {
                 return false;
             }
             $mdp_DB = $oPDOStatement->fetch(PDO::FETCH_ASSOC);
-            $mdp_DB = openssl_decrypt(
-                $mdp_DB['mdp'],
-                $opensslMethode,
-                $opensslMdp,
-                NULL,
-                $opensslVecteurInitialisation
-            );
-            return ($mdp_DB === $mdp) ? true : false;
+            if (password_verify($mdp, $mdp_DB['password'])) {
+                $_SESSION['nom'] = $mdp_DB['nom'];
+                if ($mdp_DB['admin'] == 1) {
+                    $_SESSION['admin'] = true;
+                }
+                return true;
+            }
+            return false;
         } catch (PDOException $e) {
             throw $e;
         }

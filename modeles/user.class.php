@@ -51,9 +51,9 @@ class User extends Entite
      */
     protected function setNom($nom = NULL)
     {
-        $regExp = '/\S{8,}/';
+        $regExp = '/\S{2,}/';
         if (!preg_match($regExp, $nom)) {
-            $this->erreursHydrate['nom'] = "Au moins 8 caractères.";
+            $this->erreursHydrate['nom'] = "Au moins 2 caractères.";
         }
         $this->nom = trim($nom);
     }
