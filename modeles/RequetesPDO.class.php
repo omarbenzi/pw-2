@@ -222,23 +222,7 @@ class RequetesPDO
         }
     }
 
-    public function getAdmins()
-    {
-        try {
-            $sPDO = SingletonPDO::getInstance();
-            $oPDOStatement = $sPDO->prepare(
-                "SELECT *  FROM administrateur "
-            );
-            $oPDOStatement->execute();
-            if ($oPDOStatement->rowCount() == 0) {
-                throw new exception('Aucun résultat..');
-            }
-            $admins = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
-            return $admins;
-        } catch (PDOException $e) {
-            throw $e;
-        }
-    }
+
     public function getAdmin($id)
     {
         try {
@@ -338,6 +322,23 @@ class RequetesPDO
             }
             $annonces = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
             return $annonces;
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+    public function getVilles()
+    {
+        try {
+            $sPDO = SingletonPDO::getInstance();
+            $oPDOStatement = $sPDO->prepare(
+                "SELECT * FROM `ville` "
+            );
+            $oPDOStatement->execute();
+            if ($oPDOStatement->rowCount() == 0) {
+                throw new exception('Aucun résultat..');
+            }
+            $admins = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
+            return $admins;
         } catch (PDOException $e) {
             throw $e;
         }

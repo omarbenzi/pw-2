@@ -56,7 +56,7 @@ class User extends Entite
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-            $this->erreursHydrate['email'] =  "Eail non valide.";
+            $this->erreursHydrate['email'] =  "Email non valide.";
         }
 
         $this->password = trim($email);
