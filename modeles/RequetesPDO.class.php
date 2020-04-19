@@ -176,25 +176,7 @@ class RequetesPDO
         }
     }
 
-    public function getLivre($id)
-    {
-        try {
-            $sPDO = SingletonPDO::getInstance();
-            $oPDOStatement = $sPDO->prepare(
-                "SELECT * 
-                FROM livre WHERE id_livre = :id_livre"
-            );
-            $oPDOStatement->bindValue(":id_livre", $id, PDO::PARAM_INT);
-            $oPDOStatement->execute();
-            if ($oPDOStatement->rowCount() == 0) {
-                throw new exception('Aucun résultat..');
-            }
-            $autuer = $oPDOStatement->fetch();
-            return $autuer;
-        } catch (PDOException $e) {
-            throw $e;
-        }
-    }
+
     public function deleteLivre($id)
     {
         try {
@@ -320,6 +302,42 @@ class RequetesPDO
             }
             $autuers = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
             return $autuers;
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+    public function getAnnoncebyId($id)
+    {
+        try {
+            $sPDO = SingletonPDO::getInstance();
+            $oPDOStatement = $sPDO->prepare(
+                "SELECT * FROM annonce WHERE annonce.idarticle = :id OR annonce.sous-categorie_idsous-categorie = :id"
+            );
+            $oPDOStatement->bindValue(":id", $id, PDO::PARAM_INT);
+            $oPDOStatement->execute();
+            if ($oPDOStatement->rowCount() == 0) {
+                throw new exception('Aucun résultat..');
+            }
+            $autuer = $oPDOStatement->fetch();
+            return $autuer;
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+    public function getAnnoncebySousCategory($id)
+    {
+        try {
+            $sPDO = SingletonPDO::getInstance();
+            $oPDOStatement = $sPDO->prepare(
+                "SELECT * FROM annonce WHERE annonce.sous-categorie_idsous-categori = :id"
+            );
+            $oPDOStatement->bindValue(":id", $id, PDO::PARAM_INT);
+            $oPDOStatement->execute();
+            if ($oPDOStatement->rowCount() == 0) {
+                throw new exception('Aucun résultat..');
+            }
+            $autuer = $oPDOStatement->fetch();
+            return $autuer;
         } catch (PDOException $e) {
             throw $e;
         }

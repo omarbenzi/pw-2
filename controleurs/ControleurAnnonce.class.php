@@ -2,29 +2,27 @@
 
 class ControleurAnnonce
 {
-    private $tri_type = "annee";
-    private $tri_ordre = "desc";
-    private $recherche_annee = null;
-    private $recherche_titreContient = null;
+    private $categories = [];
+
+
 
 
 
     public function __construct()
     {
         try {
-            $this->item   = isset($_GET['item'])   ? $_GET['item']   : "getAnnoncesSponsorises";
+            $this->item   = isset($_GET['item'])   ? $_GET['item']   : "annoncesSponsorise";
             $this->action = isset($_GET['action']) ? $_GET['action'] : "get";
             $this->id     = isset($_GET['id'])     ? $_GET['id']     : "";
 
-            if (in_array($this->item, ["annonce", "getAnnoncesSponsorises"])) {
-                if (in_array($this->action, ["get", "ajouter", "modifier", "supprimer"])) {
+            if (in_array($this->item, ["annonce", "annoncesSponsorise"])) {
+                if (in_array($this->action, ["get", "ajouter", "modifier", "supprimer", "getbySCategory"])) {
                     $item   = ucfirst($this->item);
                     $action = $this->action;
                     if ($action === "get") $item .= "s";
-                    $action = $action . $item;
-                    new Annonce($action);
-                    // $methode = $action . $item;
-                    // $this->$methode();
+                    $methode = $action . $item;
+                    // print_r($methode);
+                    $this->$methode();
                     exit;
                 }
                 if ($this->action === "deconnecter") {
@@ -39,15 +37,33 @@ class ControleurAnnonce
         }
     }
 
-    /**
-     * Affiche la page de liste des livres
-     *
-     */
-    private function getLivres()
+
+    private function getAnnoncesSponsorises()
     {
         try {
             $reqPDO = new RequetesPDO();
-            $livres = $reqPDO->getLivres($this->tri_type, $this->tri_ordre);
+            $annoncesSponsoises = $reqPDO->getAnnoncesSponsorises();
+            $categories = $reqPDO->getCategories();
+            $annoncesSponsoises = array_map(array($this, 'arrangeDate'), $annoncesSponsoises);
+            $this->arrangeCategorie($categories);
+            $vue = new Vue("Accueil", array(
+                'annoncesSponsoises' => $annoncesSponsoises,
+                'categories'   => $this->categories,
+            ));
+        } catch (Exception $e) {
+            $this->erreur($e->getMessage(), $e->getCode());
+        }
+    }
+
+    /**
+     * Affiche les annonces par id Sous categorie
+     *
+     */
+    private function getbySCategoryAnnonces()
+    {
+        try {
+            $reqPDO = new RequetesPDO();
+            $livres = $reqPDO->getAnnoncebySousCategory($this->id);
             $vue = new Vue("Livres", array(
                 'livres' => $livres,
                 'type'   => $this->tri_type,
@@ -55,6 +71,36 @@ class ControleurAnnonce
             ));
         } catch (Exception $e) {
             $this->erreur($e->getMessage(), $e->getCode());
+        }
+    }
+
+
+
+    /**
+     * change le format de la date  
+     *
+     * @param  array $annoncesSponsoises
+     *
+     * @return array
+     */
+    private function arrangeDate($annoncesSponsoises)
+    {
+        $date = $annoncesSponsoises['datePublication'];
+
+        $createDate = new DateTime($date);
+
+        $annoncesSponsoises['datePublication'] = $createDate->format('Y-m-d');
+        return $annoncesSponsoises;
+    }
+    private function arrangeCategorie($categoriesArray)
+    {
+        foreach ($categoriesArray as $categorie) {
+            if (!in_array($categorie['categorie'], $this->categories)) {
+                //array_push($this->categories, $categorie['categorie']);
+                $this->categories[$categorie['categorie']]['id'] = $categorie['idcategorie'];
+                $this->categories[$categorie['categorie']]['sousCategorie'][] = $categorie['sousCategorie'];
+                $this->categories[$categorie['categorie']][$categorie['sousCategorie']]['id'] = $categorie['id_sousCategorie'];
+            }
         }
     }
 
