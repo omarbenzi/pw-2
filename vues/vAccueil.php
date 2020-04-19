@@ -10,10 +10,10 @@
                 <h4><?= $categorie ?></h4>
                 <div>
                     <ul>
-                        <li><a href="#">Accessoires, Pneus</a></li>
-                        <li><a href="#">Camions</a></li>
-                        <li><a href="#">Pièces</a></li>
-                        <li><a href="#">Motos</a></li>
+                        <?php foreach ($details['sousCategorie'] as $sousCategorie) : ?>
+                            <li><a href="#"><?= $sousCategorie ?></a></li>
+                        <?php endforeach;
+                        ?>
                     </ul>
                 </div>
             <?php endforeach;

@@ -38,8 +38,39 @@
             <?php echo $contenu ?>
             <!-- contenu d'une vue spécifique -->
         </div>
+
+        <script type="text/javascript" src="<?php echo str_replace("\\", "", Controleur::$base_uri) ?>js/main.js"></script>
         <footer>
-            <script type="text/javascript" src="<?php echo str_replace("\\", "", Controleur::$base_uri) ?>js/main.js"></script>
+            <div class="links_container">
+                <div class="links">
+                    <h3>Nous joindre</h3>
+                    <nav>
+                        <a href="#">Un Numéro Unique:455</a>
+                        <a href="#">Par Courriel</a>
+                        <a href="#">En Personne</a>
+                    </nav>
+                </div>
+                <div class="links">
+                    <h3>Services</h3>
+                    <nav>
+                        <a href="#">Gestion de compte</a>
+                        <a href="#">Programme d'échange</a>
+                        <a href="#">Centre d'assistance</a>
+                    </nav>
+                </div>
+                <div class="links">
+                    <h3>Suivez-Nous</h3>
+                    <nav>
+                        <a href="https://www.facebook.com/"><img src="images/Facebook.png" alt="Facebook"> <span>Facebook</span></a>
+                        <a href="https://twitter.com"><img src="images/twitter.png" alt="Twitter"><span>Twitter</span></a>
+                        <a href="https://www.instagram.com/"><img src="images/Instagram.png" alt="Instagram"><span>Instagram</span></a>
+                    </nav>
+                </div>
+            </div>
+            <div class="brand">
+                <p> © 2020 NOM DU SITE Tous droits réservés.</p>
+                <p>L'utilisation de ce site est conditionelle à l'acceptation des conditions d'utilisation et de la politique de confidentialité </p>
+            </div>
         </footer>
     </div>
 </body>

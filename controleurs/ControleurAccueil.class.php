@@ -21,7 +21,6 @@ class ControleurAccueil
             $categories = $reqPDO->getCategories();
             $annoncesSponsoises = array_map(array($this, 'arrangeDate'), $annoncesSponsoises);
             $this->arrangeCategorie($categories);
-            print_r($this->categories);
             $vue = new Vue("Accueil", array(
                 'annoncesSponsoises' => $annoncesSponsoises,
                 'categories'   => $this->categories,
