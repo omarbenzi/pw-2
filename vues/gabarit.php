@@ -26,7 +26,7 @@
             </div>
             <nav>
                 <ul class="srt-menu">
-                    <li id="home"><a href="#home" class="homeIcon">Home</a></li>
+                    <li id="home"><a href="annonce" class="homeIcon">Home</a></li>
                     <li><a href="#">Messages</a></li>
                     <li> <?= (isset($_SESSION['identifiant'])) ? '<a href="user?item=administrateur&action=deconnecter">Déconnexion</a>' : '<a href="user?item=user&action=connexion">Connexion</a>'   ?>
 

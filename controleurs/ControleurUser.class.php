@@ -61,7 +61,7 @@ class ControleurUser extends Controleur
                     ), 'gabaritAdmin');
                }
           } else {
-               $vue = new Vue("userConnexion", array(
+               $vue = new Vue("U                                                               serConnexion", array(
                     '' => null,
                ), 'gabarit');
           }
