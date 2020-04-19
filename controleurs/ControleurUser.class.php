@@ -106,31 +106,41 @@ class ControleurUser extends Controleur
           try {
 
                if (isset($_POST['envoyer'])) {
+                    $reqPDO = new RequetesPDO();
+                    $villes = $reqPDO->getVilles();
 
                     $erreursHydrate = null;
                     $erreurMysql = null;
                     $oUser = new User();
-                    $erreursHydrate = $oUser->hydrate(["nom" => $_POST['nom'], "password" => $_POST['password'], "email" => $_POST['email']]);
+                    $erreursHydrate = $oUser->hydrate(["nom" => $_POST['nom'], "password" => $_POST['password'], "email" => $_POST['email'], 'ville_idVille' => $_POST['ville_idVille'], 'passwordConfirm' => $_POST['passwordConfirm']]);
                     if (count($erreursHydrate) !== 0) {
                          $user = $oUser->getItem();
                          $vue = new Vue("UserAjoutUser", array(
                               'user' => $user,
+                              'villes' => $villes,
                               'erreursHydrate' => $erreursHydrate,
                          ), 'gabarit');
                     } else {
                          $user = $oUser->getItem();
+                         $user = $this->encrypteMdp($user);
+
                          $reqPDO = new RequetesPDO();
-                         if (!$erreurMysql = $reqPDO->ajouterItem('user', $user)) { // pas d'erruer mysql 
-                              new ControleurAnnonce(); // retour a la page d'accueil
+                         if ($erreurMysql = $reqPDO->ajouterItem('user', $user) == true) { // pas d'erruer mysql 
+                              $this->connecter(); // retour a la page de connexion
                          } else { // ajout non effectué 
-                              $vue = new Vue("AdminListeAuteurs", array(
+                              var_dump($erreurMysql);
+                              $vue = new Vue("UserAjoutUser", array(
                                    "erreurMysql" => $erreurMysql,
+                                   'villes' => $villes,
                                    'user' => $user,
-                              ), 'gabaritAdmin');
+                              ), 'gabarit');
                          }
                     }
                } else {
+                    $reqPDO = new RequetesPDO();
+                    $villes = $reqPDO->getVilles();
                     $vue = new Vue("UserAjoutUser", array(
+                         'villes' => $villes,
                          'user' => null,
                     ), 'gabarit');
                }
@@ -486,8 +496,8 @@ class ControleurUser extends Controleur
       */
      private function encrypteMdp($admin)
      {
-          $admin['mdp'] = openssl_encrypt(
-               $admin['mdp'],
+          $admin['password'] = openssl_encrypt(
+               $admin['password'],
                $this->opensslMethode,
                $this->opensslMdp,
                NULL,

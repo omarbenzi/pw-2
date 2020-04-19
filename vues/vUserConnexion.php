@@ -11,7 +11,7 @@
         <div class="login-content">
             <form action="index.html">
                 <img src="images/avatar.svg">
-                <h2 class="title">Welcome</h2>
+                <h2 class="title">Bienvenue</h2>
                 <p class="erreur">&nbsp;<?= (isset($msgErreur)) ? $msgErreur : null ?></p>
                 <div class="input-div one">
                     <div class="i">
@@ -31,6 +31,7 @@
                         <input type="password" class="input" <?= (isset($admin['mdp'])) ? $admin['mdp'] : null ?>>
                     </div>
                 </div>
+
                 <input type="submit" class="btn" value="Connexion">
                 <input type="button" class="btn inscription" value="S'inscrire">
             </form>
