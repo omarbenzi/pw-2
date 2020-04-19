@@ -300,8 +300,8 @@ class RequetesPDO
             if ($oPDOStatement->rowCount() == 0) {
                 throw new exception('Aucun résultat..', 3);
             }
-            $autuers = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
-            return $autuers;
+            $catego = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
+            return $catego;
         } catch (PDOException $e) {
             throw $e;
         }
@@ -329,15 +329,15 @@ class RequetesPDO
         try {
             $sPDO = SingletonPDO::getInstance();
             $oPDOStatement = $sPDO->prepare(
-                "SELECT * FROM annonce WHERE annonce.idsous_categori = :id"
+                "SELECT * FROM annonce WHERE annonce.sous_categorie_id = :id"
             );
             $oPDOStatement->bindValue(":id", $id, PDO::PARAM_INT);
             $oPDOStatement->execute();
             if ($oPDOStatement->rowCount() == 0) {
                 throw new exception('Aucun résultat..');
             }
-            $autuer = $oPDOStatement->fetch();
-            return $autuer;
+            $annonces = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
+            return $annonces;
         } catch (PDOException $e) {
             throw $e;
         }

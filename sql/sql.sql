@@ -108,12 +108,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`annonce` (
   `datePublication` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
   `user_iduser` INT NOT NULL,
   `sponsorise` INT NULL,
-  `sous-categorie_idsous-categorie` INT NOT NULL,
+  `sous_categorie_id` INT NOT NULL,
   `image_idimage` INT NOT NULL,
-  PRIMARY KEY (`idarticle`, `user_iduser`, `sous-categorie_idsous-categorie`),
+  PRIMARY KEY (`idarticle`, `user_iduser`, `sous_categorie_id`),
     FOREIGN KEY (`user_iduser`)
     REFERENCES `mydb`.`user` (`iduser`),
-    FOREIGN KEY (`sous-categorie_idsous-categorie`)
+    FOREIGN KEY (`sous_categorie_id`)
     REFERENCES `mydb`.`sousCategorie` (`id_sousCategorie`),
     FOREIGN KEY (`image_idimage`)
     REFERENCES `mydb`.`image` (`idimage`)

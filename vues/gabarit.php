@@ -28,7 +28,9 @@
                 <ul class="srt-menu">
                     <li id="home"><a href="#home" class="homeIcon">Home</a></li>
                     <li><a href="#">Messages</a></li>
-                    <li><a href="#">Connection</a></li>
+                    <li> <?= (isset($_SESSION['identifiant'])) ? '<a href="admin?item=administrateur&action=deconnecter">Déconnexion</a>' : '<a href="admin?item=administrateur&action=deconnecter">Connexion</a>'   ?>
+
+                    </li>
                     <li><a href="#">favoris</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul> <!-- .srt-menu -->
