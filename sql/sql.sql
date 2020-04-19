@@ -80,15 +80,15 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`sous-categorie`
+-- Table `mydb`.`sousCategorie`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`sous-categorie` ;
+DROP TABLE IF EXISTS `mydb`.`sousCategorie` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`sous-categorie` (
-  `idsous-categorie` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `mydb`.`sousCategorie` (
+  `id_sousCategorie` INT NOT NULL AUTO_INCREMENT,
   `nom` VARCHAR(45) NULL,
   `id_categorie` INT NOT NULL,
-  PRIMARY KEY (`idsous-categorie`),
+  PRIMARY KEY (`id_sousCategorie`),
     FOREIGN KEY (`id_categorie`)
     REFERENCES `mydb`.`categorie` (`idcategorie`)
     )
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`annonce` (
     FOREIGN KEY (`user_iduser`)
     REFERENCES `mydb`.`user` (`iduser`),
     FOREIGN KEY (`sous-categorie_idsous-categorie`)
-    REFERENCES `mydb`.`sous-categorie` (`idsous-categorie`),
+    REFERENCES `mydb`.`sousCategorie` (`id_sousCategorie`),
     FOREIGN KEY (`image_idimage`)
     REFERENCES `mydb`.`image` (`idimage`)
 )

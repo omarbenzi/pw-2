@@ -19,8 +19,8 @@ INSERT INTO `mydb`.`categorie`
 (NULL, 'moto');
 
 
-INSERT INTO `mydb`.`sous-categorie`
-(`idsous-categorie`, `nom`, `id_categorie`) VALUES
+INSERT INTO `mydb`.`sousCategorie`
+(`id_sousCategorie`, `nom`, `id_categorie`) VALUES
 (NULL, 'pieces', '1'),
 (NULL, 'roue', '1'),
 (NULL, 'cuisine', '2'),

@@ -312,7 +312,7 @@ class RequetesPDO
         try {
             $sPDO = SingletonPDO::getInstance();
             $oPDOStatement = $sPDO->prepare(
-                "SELECT * FROM annonce WHERE annonce.sponsorise = (1) "
+                "SELECT souscategorie.id_sousCategorie, souscategorie.nom AS sousCategorie,categorie.idcategorie, categorie.nom AS categorie FROM `souscategorie` INNER JOIN `categorie` ON souscategorie.id_categorie = categorie.idcategorie"
             );
             $oPDOStatement->execute();
             if ($oPDOStatement->rowCount() == 0) {
