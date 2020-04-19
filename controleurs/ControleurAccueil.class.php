@@ -24,7 +24,7 @@ class ControleurAccueil
             print_r($this->categories);
             $vue = new Vue("Accueil", array(
                 'annoncesSponsoises' => $annoncesSponsoises,
-                //'categories'   => $this->categories,
+                'categories'   => $this->categories,
             ));
         } catch (Exception $e) {
             $this->erreur($e->getMessage(), $e->getCode());
@@ -50,7 +50,7 @@ class ControleurAccueil
     {
         foreach ($categoriesArray as $categorie) {
             if (!in_array($categorie['categorie'], $this->categories)) {
-                array_push($this->categories, $categorie['categorie']);
+                //array_push($this->categories, $categorie['categorie']);
                 $this->categories[$categorie['categorie']]['id'] = $categorie['idcategorie'];
                 $this->categories[$categorie['categorie']]['sousCategorie'][] = $categorie['sousCategorie'];
                 $this->categories[$categorie['categorie']][$categorie['sousCategorie']]['id'] = $categorie['id_sousCategorie'];
