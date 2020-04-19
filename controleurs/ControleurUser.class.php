@@ -128,7 +128,7 @@ class ControleurUser extends Controleur
                          }
                     }
                } else {
-                    $vue = new Vue("UserAjoutAuteur", array(
+                    $vue = new Vue("UserAjoutUser", array(
                          'user' => null,
                     ), 'gabarit');
                }
