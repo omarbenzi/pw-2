@@ -498,13 +498,7 @@ class ControleurUser extends Controleur
       */
      private function encrypteMdp($admin)
      {
-          $admin['password'] = openssl_encrypt(
-               $admin['password'],
-               $this->opensslMethode,
-               $this->opensslMdp,
-               NULL,
-               $this->opensslVecteurInitialisation
-          );
+          $admin['mdp'] = password_hash($admin['mdp'], PASSWORD_DEFAULT);
           return $admin;
      }
 
@@ -518,7 +512,14 @@ class ControleurUser extends Controleur
       */
      private function decrypteMdp($admin)
      {
-          $admin['mdp'] = password_hash($admin['mdp'], PASSWORD_DEFAULT);
+          $admin['mdp'] = openssl_decrypt(
+               $admin['mdp'],
+               $this->opensslMethode,
+               $this->opensslMdp,
+               NULL,
+               $this->opensslVecteurInitialisation
+          );
+
           return $admin;
      }
 }
