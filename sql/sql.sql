@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `nom` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
   `telephone` VARCHAR(45) NULL,
-  `dateInscription` TIMESTAMP ,
+  `dateInscription` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
   `password` VARCHAR(2000) NULL,
   `admin` INT(1) NULL,
   `ville_idVille` INT NOT NULL,
