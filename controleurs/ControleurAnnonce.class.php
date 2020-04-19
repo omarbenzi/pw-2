@@ -19,7 +19,7 @@ class ControleurAnnonce
                 if (in_array($this->action, ["get", "ajouter", "modifier", "supprimer", "getbySCategory"])) {
                     $item   = ucfirst($this->item);
                     $action = $this->action;
-                    if ($action === "get") $item .= "s";
+                    if ($action === "get" || $action === "getbySCategory") $item .= "s";
                     $methode = $action . $item;
                     // print_r($methode);
                     $this->$methode();
@@ -46,6 +46,7 @@ class ControleurAnnonce
             $categories = $reqPDO->getCategories();
             $annoncesSponsoises = array_map(array($this, 'arrangeDate'), $annoncesSponsoises);
             $this->arrangeCategorie($categories);
+            print_r($this->categories);
             $vue = new Vue("Accueil", array(
                 'annonces' => $annoncesSponsoises,
                 'categories'   => $this->categories,
@@ -63,11 +64,12 @@ class ControleurAnnonce
     {
         try {
             $reqPDO = new RequetesPDO();
-            $livres = $reqPDO->getAnnoncebySousCategory($this->id);
-            $vue = new Vue("Livres", array(
-                'livres' => $livres,
-                'type'   => $this->tri_type,
-                'ordre'  => $this->tri_ordre
+            $annonces = $reqPDO->getAnnoncebySousCategory($this->id);
+            $categories = $reqPDO->getCategories();
+            $this->arrangeCategorie($categories);
+            $vue = new Vue("Accueil", array(
+                'annonces' => $annonces,
+                'categories'   => $this->categories,
             ));
         } catch (Exception $e) {
             $this->erreur($e->getMessage(), $e->getCode());

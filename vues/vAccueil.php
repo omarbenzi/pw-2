@@ -11,7 +11,7 @@
                 <div>
                     <ul>
                         <?php foreach ($details['sousCategorie'] as $sousCategorie) : ?>
-                            <li><a href="#"><?= $sousCategorie ?></a></li>
+                            <li><a href="http://localhost/pw2/pw-2/annonce?item=annonce&action=getbySCategory&id=<?= $details[$sousCategorie]['id'] ?>"><?= $sousCategorie ?></a></li>
                         <?php endforeach;
                         ?>
                     </ul>

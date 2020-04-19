@@ -329,7 +329,7 @@ class RequetesPDO
         try {
             $sPDO = SingletonPDO::getInstance();
             $oPDOStatement = $sPDO->prepare(
-                "SELECT * FROM annonce WHERE annonce.sous-categorie_idsous-categori = :id"
+                "SELECT * FROM annonce WHERE annonce.idsous_categori = :id"
             );
             $oPDOStatement->bindValue(":id", $id, PDO::PARAM_INT);
             $oPDOStatement->execute();
