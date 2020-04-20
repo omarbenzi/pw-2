@@ -28,7 +28,7 @@
                 <ul class="srt-menu">
                     <li id="home"><a href="annonce" class="homeIcon">Home</a></li>
                     <li><a href="#">Messages</a></li>
-                    <li> <?= (isset($_SESSION['id'])) ? '<a href="user?item=user&action=deconnecter">Déconnexion</a>' : '<a href="user?item=user&action=connexion">Connexion</a>'   ?>
+                    <li> <?= (isset($_SESSION['id'])) ? '<a href="user?action=deconnecter">Déconnexion</a>' : '<a href="user?item=user&action=connexion">Connexion</a>'   ?>
 
                     </li>
                     <?= (isset($_SESSION['id'])) ? '

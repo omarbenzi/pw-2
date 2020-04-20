@@ -15,7 +15,7 @@ class ControleurUser extends Controleur
      public function __construct()
      {
 
-          if (isset($_SESSION['identifiant'])) {
+          if (isset($_SESSION['id'])) {
 
                $this->item   = isset($_GET['item'])   ? $_GET['item']   : "livre";
                $this->action = isset($_GET['action']) ? $_GET['action'] : "get";
@@ -63,7 +63,7 @@ class ControleurUser extends Controleur
                }
           } else {
                $vue = new Vue("UserConnexion", array(
-                    'msgErreur' => 'Vous avez été deconnecté.',
+                    'msgErreur' => $msg,
                     '' => null,
                     '' => null,
                ), 'gabarit');
@@ -78,10 +78,11 @@ class ControleurUser extends Controleur
      {
           session_destroy();
           unset($_SESSION['id']);
+          unset($_SESSION['nom']);
+          unset($_SESSION['admin']);
 
-          var_dump($_SESSION);
-          exit;
-          //$this->connecter();
+
+          $this->connecter(' Vous avez été deconnecté');
      }
 
      /**
