@@ -25,10 +25,7 @@ class ControleurAnnonce
                     $this->$methode();
                     exit;
                 }
-                if ($this->action === "deconnecter") {
-                    $this->deconnecter();
-                    exit;
-                }
+
                 throw new exception("Action invalide");
             }
             throw new exception("Item invalide");
@@ -46,7 +43,7 @@ class ControleurAnnonce
             $categories = $reqPDO->getCategories();
             $annoncesSponsoises = array_map(array($this, 'arrangeDate'), $annoncesSponsoises);
             $this->arrangeCategorie($categories);
-            print_r($this->categories);
+            // print_r($this->categories);
             $vue = new Vue("Accueil", array(
                 'annonces' => $annoncesSponsoises,
                 'categories'   => $this->categories,

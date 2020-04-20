@@ -53,12 +53,12 @@ class ControleurUser extends Controleur
           if (isset($_POST['Envoyer'])) {
                $reqPDO = new RequetesPDO();
                if ($reqPDO->getConnexion($_POST['email'], $_POST['password'])) {
-                    new Vue('accueil');
+                    new ControleurAnnonce();
                } else {
                     list($user['email'], $user['password']) = [$_POST['email'], $_POST['password']];
                     $vue = new Vue("UserConnexion", array(
                          'user' => $user,
-                         'msgErreur' => 'Identifiant ou mot de passe incorrect.',
+                         'msgErreur' => 'Email ou mot de passe incorrect.',
                     ), 'gabarit');
                }
           } else {

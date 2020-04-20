@@ -211,6 +211,7 @@ class RequetesPDO
             $mdp_DB = $oPDOStatement->fetch(PDO::FETCH_ASSOC);
             if (password_verify($mdp, $mdp_DB['password'])) {
                 $_SESSION['nom'] = $mdp_DB['nom'];
+                $_SESSION['id'] = $mdp_DB['iduser'];
                 if ($mdp_DB['admin'] == 1) {
                     $_SESSION['admin'] = true;
                 }
