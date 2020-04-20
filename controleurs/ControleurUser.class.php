@@ -48,7 +48,7 @@ class ControleurUser extends Controleur
       *
       * @return void
       */
-     private function connecter()
+     private function connecter($msg = false)
      {
           if (isset($_POST['Envoyer'])) {
                $reqPDO = new RequetesPDO();
@@ -63,6 +63,8 @@ class ControleurUser extends Controleur
                }
           } else {
                $vue = new Vue("UserConnexion", array(
+                    'msgErreur' => 'Vous avez été deconnecté.',
+                    '' => null,
                     '' => null,
                ), 'gabarit');
           }
@@ -74,8 +76,12 @@ class ControleurUser extends Controleur
       */
      private function deconnecter()
      {
-          unset($_SESSION['identifiant']);
-          $this->connecter();
+          session_destroy();
+          unset($_SESSION['id']);
+
+          var_dump($_SESSION);
+          exit;
+          //$this->connecter();
      }
 
      /**

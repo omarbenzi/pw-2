@@ -194,13 +194,11 @@ class RequetesPDO
     public function getConnexion($email, $mdp)
     {
         try {
-            $opensslMethode = "AES-256-CBC";
-            $opensslMdp = "aqzsedrf123";
-            $opensslVecteurInitialisation = "123abc456defg789";
+
 
             $sPDO = SingletonPDO::getInstance();
             $oPDOStatement = $sPDO->prepare(
-                "SELECT password,admin,nom 
+                "SELECT password,admin,nom,iduser 
                 FROM user WHERE email = :email"
             );
             $oPDOStatement->bindValue(":email", $email, PDO::PARAM_STR);

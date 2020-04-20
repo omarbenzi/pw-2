@@ -28,11 +28,11 @@
                 <ul class="srt-menu">
                     <li id="home"><a href="annonce" class="homeIcon">Home</a></li>
                     <li><a href="#">Messages</a></li>
-                    <li> <?= (isset($_SESSION['nom'])) ? '<a href="user?item=user&action=deconnecter">Déconnexion</a>' : '<a href="user?item=user&action=connexion">Connexion</a>'   ?>
+                    <li> <?= (isset($_SESSION['id'])) ? '<a href="user?item=user&action=deconnecter">Déconnexion</a>' : '<a href="user?item=user&action=connexion">Connexion</a>'   ?>
 
                     </li>
-                    <?= (isset($_SESSION['nom'])) ? '
-                    <li><a href="annonce?action=get&item=favoris&id' . $_SESSION['id'] . '">favoris</a></li>' : '' ?>
+                    <?= (isset($_SESSION['id'])) ? '
+                    <li><a href="annonce?action=get&item=favoris&id=' .  $_SESSION['id']  . '">favoris</a></li>'  : '' ?>
 
                     <li><a href="#">Contact</a></li>
                 </ul> <!-- .srt-menu -->
