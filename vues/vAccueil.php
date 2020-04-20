@@ -32,10 +32,15 @@
                 </p>
                 <p class="description"><?= $annonce['description'] ?></p>
                 <p class="prix"><span><?= $annonce['prix'] ?></span></p>
+                <?php if (isset($_SESSION['id'])) : ?>
+                    <p class="ajouterAuFavoris" id="<?= $annonce['idarticle'] ?>"><span>Ajouter au favoris+</span></p>
+                <?php endif ?>
                 <div class="date">
                     <p>Date: <span><?= $annonce['datePublication'] ?></span></p>
                 </div>
+
             </article>
+
         <?php endforeach;
         ?>
 

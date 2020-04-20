@@ -62,7 +62,6 @@ class ControleurAnnonce
             $reqPDO = new RequetesPDO();
             $annonces = $reqPDO->getAnnoncebySousCategory($this->id);
             $annonces = array_map(array($this, 'arrangeDate'), $annonces);
-
             $categories = $reqPDO->getCategories();
             $this->arrangeCategorie($categories);
             $vue = new Vue("Accueil", array(
