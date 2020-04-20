@@ -42,8 +42,7 @@ class ControleurAnnonce
             $annoncesSponsoises = $reqPDO->getAnnoncesSponsorises();
             $categories = $reqPDO->getCategories();
             $annoncesSponsoises = array_map(array($this, 'arrangeDate'), $annoncesSponsoises);
-            $this->arrangeCategorie($categories);
-            // print_r($this->categories);
+            print_r($annoncesSponsoises);
             $vue = new Vue("Accueil", array(
                 'annonces' => $annoncesSponsoises,
                 'categories'   => $this->categories,
@@ -62,6 +61,8 @@ class ControleurAnnonce
         try {
             $reqPDO = new RequetesPDO();
             $annonces = $reqPDO->getAnnoncebySousCategory($this->id);
+            $annonces = array_map(array($this, 'arrangeDate'), $annonces);
+
             $categories = $reqPDO->getCategories();
             $this->arrangeCategorie($categories);
             $vue = new Vue("Accueil", array(
