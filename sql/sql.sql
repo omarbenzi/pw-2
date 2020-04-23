@@ -103,7 +103,7 @@ DROP TABLE IF EXISTS `mydb`.`annonce` ;
 CREATE TABLE IF NOT EXISTS `mydb`.`annonce` (
   `idarticle` INT NOT NULL AUTO_INCREMENT,
   `titre` VARCHAR(45) NULL,
-  `description` VARCHAR(255) NULL,
+  `description` VARCHAR(2550) NULL,
   `prix` INT NULL,
   `datePublication` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
   `user_iduser` INT NOT NULL,

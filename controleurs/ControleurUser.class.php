@@ -1,8 +1,8 @@
 <?php
 class ControleurUser extends Controleur
 {
-     private $item    = "livre";
-     private $action  = "get";
+     private $item    = "";
+     private $action  = "";
      private $id      = "";
 
 
@@ -20,7 +20,7 @@ class ControleurUser extends Controleur
                $this->action = isset($_GET['action']) ? $_GET['action'] : "get";
                $this->id     = isset($_GET['id'])     ? $_GET['id']     : "";
 
-               if (in_array($this->item, ["administrateur", "livre", "user"])) {
+               if (in_array($this->item, ["user"])) {
                     if (in_array($this->action, ["get", "ajouter", "modifier", "supprimer"])) {
                          $item   = ucfirst($this->item);
                          $action = $this->action;
@@ -35,7 +35,8 @@ class ControleurUser extends Controleur
                     }
                     throw new exception("Action invalide");
                }
-               throw new exception("Item invalide");
+               throw new exception("url non invalide");
+               // si l'utilisateur veut se connecter 
           } elseif (isset($_POST['action']) && $_POST['action'] == 'ajouter' && isset($_POST['item']) && $_POST['item'] == 'user') {
                $this->ajouterUser();
           } else {
