@@ -11,6 +11,7 @@
 class ControleurAnnonce
 {
     private $categories = [];
+    private $annonceInstance = null;
     public function __construct()
     {
         try {
@@ -24,7 +25,7 @@ class ControleurAnnonce
                     $action = $this->action;
                     if ($action === "get") $item .= "s";
                     $methode = $action . $item;
-                    $this->$methode();
+                    $this->$methode($this->getAnnonceInstance());
                     exit;
                 }
 
@@ -39,11 +40,11 @@ class ControleurAnnonce
      * Affiche les annonces Sponsorises
      *
      */
-    private function getAnnoncesSponsorises()
+    private function getAnnoncesSponsorises($annonceInstance)
     {
         try {
-            $annoncesSponsoises = $this->DBgetAnnoncesSponsorises();
-            $categories = $this->getCategories();
+            $annoncesSponsoises = $annonceInstance->DBgetAnnoncesSponsorises();
+            $categories = $annonceInstance->DBgetCategories();
             $this->categories = $this->arrangeCategorie($categories);
             $annoncesSponsoises = array_map(array($this, 'arrangeDate'), $annoncesSponsoises);
             $vue = new Vue("Accueil", array(
@@ -59,12 +60,12 @@ class ControleurAnnonce
      * Affiche les annonces par id Sous categorie
      *
      */
-    private function getAnnonceByCategorys()
+    private function getAnnonceByCategorys($annonceInstance)
     {
         try {
-            $annonces = $this->getAnnoncebySousCategory($this->id);
+            $annonces = $annonceInstance->DBgetAnnoncebySousCategory($this->id);
             $annonces = array_map(array($this, 'arrangeDate'), $annonces);
-            $categories = $this->getCategories();
+            $categories = $annonceInstance->DBgetCategories();
             $this->categories = $this->arrangeCategorie($categories);
             $vue = new Vue("Accueil", array(
                 'annonces' => $annonces,
@@ -111,112 +112,18 @@ class ControleurAnnonce
         }
         return $categories;
     }
-
-
-
-    private function erreur($msgErreur, $codeErreur)
+    private function getAnnonceInstance()
     {
-        if ($codeErreur === 1) {
-            $vue = new Vue("LivresTri", array(
-                'msgErreur' => $msgErreur,
-                'type'   => $this->tri_type,
-                'ordre'  => $this->tri_ordre
-            ));
-        } elseif ($codeErreur === 2) {
-
-            $vue = new Vue("LivresRecherche", array(
-                'msgErreur' => $msgErreur,
-                'annee'   => $this->recherche_annee,
-                'titreContient'   => $this->recherche_titreContient
-            ));
-        } else {
-
-            $vue = new Vue("Erreur", array('msgErreur' => $msgErreur));
+        if ($this->annonceInstance !== null) {
+            return $this->annonceInstance;
         }
+        return $this->annonceInstance = new Annonce();
     }
 
-    public function DBgetAnnoncesSponsorises()
+
+
+    private function erreur($msgErreur)
     {
-        try {
-            $sPDO = SingletonPDO::getInstance();
-            $oPDOStatement = $sPDO->prepare(
-                "SELECT * FROM annonce WHERE annonce.sponsorise = (1) "
-            );
-            $oPDOStatement->execute();
-            if ($oPDOStatement->rowCount() == 0) {
-                throw new exception('Aucun résultat..', 3);
-            }
-            $autuers = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
-            return $autuers;
-        } catch (PDOException $e) {
-            throw $e;
-        }
-    }
-    public function getCategories()
-    {
-        try {
-            $sPDO = SingletonPDO::getInstance();
-            $oPDOStatement = $sPDO->prepare(
-                "SELECT souscategorie.id_sousCategorie, souscategorie.nom AS sousCategorie,categorie.idcategorie, categorie.nom AS categorie FROM `souscategorie` INNER JOIN `categorie` ON souscategorie.id_categorie = categorie.idcategorie"
-            );
-            $oPDOStatement->execute();
-            if ($oPDOStatement->rowCount() == 0) {
-                throw new exception('Aucun résultat..', 3);
-            }
-            $catego = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
-            return $catego;
-        } catch (PDOException $e) {
-            throw $e;
-        }
-    }
-    /**
-     * getAnnoncebyId
-     *cette fonction recupere une annonce par id
-     * @param  int $id
-     *
-     * @return array
-     */
-    public function getAnnoncebyId($id)
-    {
-        try {
-            $sPDO = SingletonPDO::getInstance();
-            $oPDOStatement = $sPDO->prepare(
-                "SELECT * FROM annonce WHERE annonce.idarticle = :id OR annonce.sous-categorie_idsous-categorie = :id"
-            );
-            $oPDOStatement->bindValue(":id", $id, PDO::PARAM_INT);
-            $oPDOStatement->execute();
-            if ($oPDOStatement->rowCount() == 0) {
-                throw new exception('Aucun résultat..');
-            }
-            $autuer = $oPDOStatement->fetch();
-            return $autuer;
-        } catch (PDOException $e) {
-            throw $e;
-        }
-    }
-    /**
-     * getAnnoncebySousCategory
-     *cette fonction recupere les annonce par id Categorie
-     * @param  int $id
-     *
-     * @return array
-     */
-    public function getAnnoncebySousCategory($id)
-    {
-        try {
-            $sPDO = SingletonPDO::getInstance();
-            $oPDOStatement = $sPDO->prepare(
-                "SELECT * FROM annonce WHERE annonce.sous_categorie_id = :id"
-            );
-            $oPDOStatement->bindValue(":id", $id, PDO::PARAM_INT);
-            $oPDOStatement->execute();
-            if ($oPDOStatement->rowCount() == 0) {
-                throw new exception('Aucun résultat..');
-            }
-            $annonces = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
-            return $annonces;
-        } catch (PDOException $e) {
-            throw $e;
-        }
+        $vue = new Vue("Erreur", array('msgErreur' => $msgErreur));
     }
 }
