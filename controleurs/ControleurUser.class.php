@@ -50,8 +50,7 @@ class ControleurUser extends Controleur
      private function connecter($msg = false)
      {
           if (isset($_POST['Envoyer'])) {
-               $reqPDO = new RequetesPDO();
-               if ($reqPDO->getConnexion($_POST['email'], $_POST['password'])) {
+               if ($this->getConnexion($_POST['email'], $_POST['password'])) {
                     new ControleurAnnonce();
                } else {
                     list($user['email'], $user['password']) = [$_POST['email'], $_POST['password']];
@@ -95,7 +94,6 @@ class ControleurUser extends Controleur
 
                if (isset($_POST['envoyer'])) {
                     $villes = $this->getVilles();
-
                     $erreursHydrate = null;
                     $erreurMysql = null;
                     $oUser = new User();
@@ -176,6 +174,43 @@ class ControleurUser extends Controleur
                }
                $admins = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
                return $admins;
+          } catch (PDOException $e) {
+               throw $e;
+          }
+     }
+
+     /**
+      * getVilles
+      *cette fonction recupere verifie la connexion
+      * @param  array $admin
+      *
+      * @return array
+      */
+     public function getConnexion($email, $mdp)
+     {
+          try {
+
+
+               $sPDO = SingletonPDO::getInstance();
+               $oPDOStatement = $sPDO->prepare(
+                    "SELECT password,admin,nom,iduser 
+                 FROM user WHERE email = :email"
+               );
+               $oPDOStatement->bindValue(":email", $email, PDO::PARAM_STR);
+               $oPDOStatement->execute();
+               if ($oPDOStatement->rowCount() == 0) {
+                    return false;
+               }
+               $mdp_DB = $oPDOStatement->fetch(PDO::FETCH_ASSOC);
+               if (password_verify($mdp, $mdp_DB['password'])) {
+                    $_SESSION['nom'] = $mdp_DB['nom'];
+                    $_SESSION['id'] = $mdp_DB['iduser'];
+                    if ($mdp_DB['admin'] == 1) {
+                         $_SESSION['admin'] = true;
+                    }
+                    return true;
+               }
+               return false;
           } catch (PDOException $e) {
                throw $e;
           }

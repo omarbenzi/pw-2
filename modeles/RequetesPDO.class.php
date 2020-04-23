@@ -62,35 +62,7 @@ class RequetesPDO
     }
 
 
-    public function getConnexion($email, $mdp)
-    {
-        try {
-
-
-            $sPDO = SingletonPDO::getInstance();
-            $oPDOStatement = $sPDO->prepare(
-                "SELECT password,admin,nom,iduser 
-                FROM user WHERE email = :email"
-            );
-            $oPDOStatement->bindValue(":email", $email, PDO::PARAM_STR);
-            $oPDOStatement->execute();
-            if ($oPDOStatement->rowCount() == 0) {
-                return false;
-            }
-            $mdp_DB = $oPDOStatement->fetch(PDO::FETCH_ASSOC);
-            if (password_verify($mdp, $mdp_DB['password'])) {
-                $_SESSION['nom'] = $mdp_DB['nom'];
-                $_SESSION['id'] = $mdp_DB['iduser'];
-                if ($mdp_DB['admin'] == 1) {
-                    $_SESSION['admin'] = true;
-                }
-                return true;
-            }
-            return false;
-        } catch (PDOException $e) {
-            throw $e;
-        }
-    }
+ 
 
 
 
