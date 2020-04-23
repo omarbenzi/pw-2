@@ -1,7 +1,5 @@
 <?php $this->titre = "Connexion"; ?>
 
-
-
 <body class="body-connection">
     <img class="wave" src="images/wave.png">
     <div class="container">
@@ -12,7 +10,7 @@
             <form action="user" method="post">
                 <img src="images/avatar.svg">
                 <h2 class="title">Bienvenue</h2>
-                <p class="erreur">&nbsp;<?= (isset($msgErreur)) ? $msgErreur : null ?></p>
+                <p class="erreur">&nbsp;<?= (isset($msg)) ? $msg : null ?></p>
                 <div class="input-div one">
                     <div class="i">
                         <i class="fas fa-user"></i>
@@ -45,9 +43,7 @@
     <script type="text/javascript" src="js/main.js"></script>
     <script>
         $('.inscription').click('click', function(params) {
-
             $('#myForm').submit();
-
         })
     </script>
 

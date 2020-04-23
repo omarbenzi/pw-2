@@ -63,7 +63,7 @@ class ControleurUser extends Controleur
                }
           } else {
                $vue = new Vue("UserConnexion", array(
-                    'msgErreur' => $msg,
+                    'msg' => $msg,
                     '' => null,
                     '' => null,
                ), 'gabarit');
@@ -81,27 +81,10 @@ class ControleurUser extends Controleur
           unset($_SESSION['nom']);
           unset($_SESSION['admin']);
 
-
+          // afficher la page connexion avec un message 
           $this->connecter(' Vous avez été deconnecté');
      }
 
-     /**
-      * get Auteurs
-      *
-      * @return void
-      */
-     private function getAuteurs()
-     {
-          try {
-               $reqPDO = new RequetesPDO();
-               $auteurs = $reqPDO->getAuteurs();
-               $vue = new Vue("AdminListeAuteurs", array(
-                    'auteurs' => $auteurs,
-               ), 'gabaritAdmin');
-          } catch (Exception $e) {
-               $this->erreurAdmin($e->getMessage());
-          }
-     }
      /**
       * ajouter un user
       *
@@ -134,9 +117,8 @@ class ControleurUser extends Controleur
                               $vue = new Vue("UserConnexion", array(
                                    '' => null,
                                    'msgErreur' => 'Votre compte a été crée',
-                              ), 'gabarit'); // retour a la page de connexion
+                              ), 'gabarit'); // redirection vers a la page de connexion
                          } else { // ajout non effectué 
-                              var_dump($erreurMysql);
                               $vue = new Vue("UserAjoutUser", array(
                                    "erreurMysql" => $erreurMysql,
                                    'villes' => $villes,
