@@ -130,13 +130,19 @@ class ControleurUser extends Controleur
                     ), 'gabarit');
                }
           } catch (Exception $e) {
-               $this->erreurAdmin($e->getMessage());
+               $this->erreur($e->getMessage());
           }
      }
 
 
-
-     private function erreurAdmin($msgErreur)
+     /**
+      * msgErreur
+      *cette fonction affiche la vu erreur pour catchée
+      * @param  string $admin
+      *
+      * @return void
+      */
+     private function erreur($msgErreur)
      {
           $vue = new Vue("Erreur", array('msgErreur' => $msgErreur), 'gabaritErreur');
      }
