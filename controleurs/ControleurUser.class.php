@@ -51,13 +51,13 @@ class ControleurUser extends Controleur
      private function connecter($msg = false)
      {
           if (isset($_POST['Envoyer'])) {
-               if ($this->getConnexion($_POST['email'], $_POST['password'])) {
+               if ($this->DBgetConnexion($_POST['email'], $_POST['password'])) {
                     new ControleurAnnonce();
                } else {
                     list($user['email'], $user['password']) = [$_POST['email'], $_POST['password']];
                     $vue = new Vue("UserConnexion", array(
                          'user' => $user,
-                         'msgErreur' => 'Email ou mot de passe incorrect.',
+                         'msg' => 'Email ou mot de passe incorrect.',
                     ), 'gabarit');
                }
           } else {
@@ -94,7 +94,7 @@ class ControleurUser extends Controleur
           try {
 
                if (isset($_POST['envoyer'])) {
-                    $villes = $this->getVilles();
+                    $villes = $this->DBgetVilles();
                     $erreursHydrate = null;
                     $erreurMysql = null;
                     $oUser = new User();
@@ -124,7 +124,7 @@ class ControleurUser extends Controleur
                          }
                     }
                } else {
-                    $villes = $this->getVilles();
+                    $villes = $this->DBgetVilles();
                     $vue = new Vue("UserAjoutUser", array(
                          'villes' => $villes,
                          'user' => null,
@@ -138,7 +138,7 @@ class ControleurUser extends Controleur
 
      /**
       * msgErreur
-      *cette fonction affiche la vu erreur pour catchée
+      *cette fonction affiche la vu erreur pour les catchée
       * @param  string $msgErreur
       *
       * @return void
@@ -158,67 +158,5 @@ class ControleurUser extends Controleur
      {
           $pwd['password'] = password_hash($pwd['password'], PASSWORD_DEFAULT);
           return $pwd;
-     }
-
-
-     /**
-      * getVilles
-      *cette fonction recupere les ville de la base de donnee
-      * @param  
-      *
-      * @return array
-      */
-     public function getVilles()
-     {
-          try {
-               $sPDO = SingletonPDO::getInstance();
-               $oPDOStatement = $sPDO->prepare(
-                    "SELECT * FROM `ville` "
-               );
-               $oPDOStatement->execute();
-               if ($oPDOStatement->rowCount() == 0) {
-                    throw new exception('Aucun résultat..');
-               }
-               $admins = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
-               return $admins;
-          } catch (PDOException $e) {
-               throw $e;
-          }
-     }
-
-     /**
-      * getConnexion
-      *cette fonction recupere verifie la connexion
-      * @param  string $email
-      * @param  string $mdp
-      *
-      * @return array
-      */
-     public function getConnexion($email, $mdp)
-     {
-          try {
-               $sPDO = SingletonPDO::getInstance();
-               $oPDOStatement = $sPDO->prepare(
-                    "SELECT password,admin,nom,iduser 
-                 FROM user WHERE email = :email"
-               );
-               $oPDOStatement->bindValue(":email", $email, PDO::PARAM_STR);
-               $oPDOStatement->execute();
-               if ($oPDOStatement->rowCount() == 0) {
-                    return false;
-               }
-               $mdp_DB = $oPDOStatement->fetch(PDO::FETCH_ASSOC);
-               if (password_verify($mdp, $mdp_DB['password'])) {
-                    $_SESSION['nom'] = $mdp_DB['nom'];
-                    $_SESSION['id'] = $mdp_DB['iduser'];
-                    if ($mdp_DB['admin'] == 1) {
-                         $_SESSION['admin'] = true;
-                    }
-                    return true;
-               }
-               return false;
-          } catch (PDOException $e) {
-               throw $e;
-          }
      }
 }

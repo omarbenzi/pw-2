@@ -25,7 +25,7 @@ class RequetesPDO
             }
         } catch (Exception $e) {
             if ($e->getCode() === self::ERREUR_MYSQL_INTEGRITY_CONSTRAINT_VIOLATION) {
-                return ucfirst($table) . " déjà présent."; // identifiant administrateur
+                return ucfirst($table) . " déjà présent."; // prevention d'avoir 2 user avec le meme email... ne pas utilisé dans notre cas il faudra changer la cle primaire de la table user pour email
             } else {
                 throw $e;
             }
@@ -53,11 +53,7 @@ class RequetesPDO
                 return 0;
             }
         } catch (Exception $e) {
-            if ($e->getCode() === self::ERREUR_MYSQL_INTEGRITY_CONSTRAINT_VIOLATION) {
-                return ucfirst($table) . " déjà présent."; // identifiant administrateur
-            } else {
-                throw $e;
-            }
+            throw $e;
         }
     }
 }

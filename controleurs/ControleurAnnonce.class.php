@@ -36,9 +36,14 @@ class ControleurAnnonce
             $this->erreur($e->getMessage(), $e->getCode());
         }
     }
+
     /**
-     * Affiche les annonces Sponsorises
+     * getAnnoncesSponsorises
+     * 
+     * 
+     * @param instance annonceInstance
      *
+     * @return void
      */
     private function getAnnoncesSponsorises($annonceInstance)
     {
@@ -57,8 +62,12 @@ class ControleurAnnonce
     }
 
     /**
-     * Affiche les annonces par id Sous categorie
+     * getAnnonceByCategorys
+     * 
+     * 
+     * @param instance annonceInstance
      *
+     * @return void
      */
     private function getAnnonceByCategorys($annonceInstance)
     {
@@ -92,6 +101,8 @@ class ControleurAnnonce
         $annoncesSponsoises['datePublication'] = $createDate->format('Y-m-d');
         return $annoncesSponsoises;
     }
+
+
     /**
      * cette fonction arrange le format des categorie
      * dans le un tableau avant les passer à la vu   
@@ -112,6 +123,14 @@ class ControleurAnnonce
         }
         return $categories;
     }
+    /**
+     * getAnnonceInstance
+     * 
+     * 
+     * @param  
+     *
+     * @return instance $this->annonceInstance
+     */
     private function getAnnonceInstance()
     {
         if ($this->annonceInstance !== null) {
@@ -121,7 +140,14 @@ class ControleurAnnonce
     }
 
 
-
+    /**
+     * affiche les erreurs 
+     * 
+     * 
+     * @param  string $msgErreur
+     *
+     * @return 
+     */
     private function erreur($msgErreur)
     {
         $vue = new Vue("Erreur", array('msgErreur' => $msgErreur));
