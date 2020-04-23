@@ -9,10 +9,8 @@ class Annonce extends Entite
     protected $sponsorise = NULL;
     protected $lien;
 
-    public function __construct($action)
+    public function __construct()
     {
-        echo $action;
-        exit;
     }
 
     protected function setIdarticle($idarticle = NULL)
@@ -108,48 +106,8 @@ class Annonce extends Entite
 
         try {
             $instance = $this->getRequestesPDOInstance();
-            $instance->ajouterItem($table, $champs);
         } catch (PDOException $e) {
             throw $e;
         }
     }
-
-
-
-
-
-    // public function getCategories()
-    // {
-    //     try {
-    //         $sPDO = SingletonPDO::getInstance();
-    //         $oPDOStatement = $sPDO->prepare(
-    //             "SELECT categorie.nom FROM categorie "
-    //         );
-    //         $oPDOStatement->execute();
-    //         if ($oPDOStatement->rowCount() == 0) {
-    //             throw new exception('Aucun résultat..', 3);
-    //         }
-    //         $autuers = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
-    //         return $autuers;
-    //     } catch (PDOException $e) {
-    //         throw $e;
-    //     }
-    // }
-    // public function getSousCategories()
-    // {
-    //     try {
-    //         $sPDO = SingletonPDO::getInstance();
-    //         $oPDOStatement = $sPDO->prepare(
-    //             "SELECT sous-categorie.nom FROM sous-categorie "
-    //         );
-    //         $oPDOStatement->execute();
-    //         if ($oPDOStatement->rowCount() == 0) {
-    //             throw new exception('Aucun résultat..', 3);
-    //         }
-    //         $autuers = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
-    //         return $autuers;
-    //     } catch (PDOException $e) {
-    //         throw $e;
-    //     }
-    // }
 }
