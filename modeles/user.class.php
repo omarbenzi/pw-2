@@ -6,7 +6,7 @@ class User extends Entite
     protected $password = NULL; // nommage identique au champ MySQL correspondant
     protected $email = null;
     protected $image_idimage = 1; // a cause de covid 19
-    protected $ville_idVille = 1;
+    protected $ville_idVille;
     protected $iduser = null;
 
 
@@ -18,20 +18,20 @@ class User extends Entite
 
 
     /**
-     * confirmation de password
+     * Validation confirmation de password
      *
-     * @param  mixed $nom
+     * @param  mixed $conPwd
      *
      * @return void
      */
-    protected function setPasswordConfirm($conPwd)
+    protected function setPasswordConfirm($connPwd)
     {
 
-        if ($conPwd !== $this->password)
+        if ($connPwd !== $this->password)
             $this->erreursHydrate['passwordConfirm'] =  "Doit etre identique au mot de passe.";
     }
     /**
-     * setIdentifiant
+     * Validation de la ville
      *
      * @param  mixed $nom
      *
@@ -39,11 +39,10 @@ class User extends Entite
      */
     protected function setVille_idVille($ville_idVille = 1)
     {
-
         $this->ville_idVille = $ville_idVille;
     }
     /**
-     * setIdentifiant
+     * Validation du nom
      *
      * @param  mixed $nom
      *
@@ -59,9 +58,9 @@ class User extends Entite
     }
 
     /**
-     * setMdp
+     * Validation du password
      *
-     * @param  mixed $mdp
+     * @param  mixed $password
      *
      * @return void
      */
@@ -74,19 +73,17 @@ class User extends Entite
         $this->password = trim($password);
     }
     /**
-     * set email
+     * Validation del'email
      *
-     * @param  mixed $mdp
+     * @param  mixed $email
      *
      * @return void
      */
     protected function setEmail($email = NULL)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
             $this->erreursHydrate['email'] =  "Email non valide.";
         }
-
         $this->email = trim($email);
     }
 }

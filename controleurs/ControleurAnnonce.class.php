@@ -21,7 +21,6 @@ class ControleurAnnonce
                     $action = $this->action;
                     if ($action === "get") $item .= "s";
                     $methode = $action . $item;
-                    // print_r($methode);
                     $this->$methode();
                     exit;
                 }

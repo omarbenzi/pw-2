@@ -61,26 +61,6 @@ class RequetesPDO
         }
     }
 
-    public function deleteAuteur($id)
-    {
-        try {
-            $sPDO = SingletonPDO::getInstance();
-            $sPDO->beginTransaction();
-            $oPDOStatement = $sPDO->prepare(
-                "DELETE FROM livre WHERE id_auteur = :id_auteur"
-            );
-            $oPDOStatement->bindValue(":id_auteur", $id, PDO::PARAM_INT);
-            $oPDOStatement->execute();
-            $oPDOStatement = $sPDO->prepare(
-                "DELETE FROM auteur WHERE id_auteur = :id_auteur"
-            );
-            $oPDOStatement->bindValue(":id_auteur", $id, PDO::PARAM_INT);
-            $oPDOStatement->execute();
-            $sPDO->commit();
-        } catch (PDOException $e) {
-            throw $e;
-        }
-    }
 
     public function getConnexion($email, $mdp)
     {

@@ -48,29 +48,29 @@ class Annonce extends Entite
     {
         // Check if file was uploaded without errors
         if (isset($image["photo"]) && $image["photo"]["error"] == 0) {
-            $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+            $permits = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
             $filename = $image["photo"]["name"];
             $filetype = $image["photo"]["type"];
             $filesize = $image["photo"]["size"];
 
-            // Verify file extension
+            // verification de l'extention 
             $ext = pathinfo($filename, PATHINFO_EXTENSION);
-            if (!array_key_exists($ext, $allowed)) {
+            if (!array_key_exists($ext, $permits)) {
                 $this->erreursHydrate['image'] = "extention non autorisée";
             }
 
-            // Verify file size - 5MB maximum
+            //  verification de la taile 
             $maxsize = 5 * 1024 * 1024;
             if ($filesize > $maxsize) {
                 $this->erreursHydrate['image'] = "la taille de l'image ne doit pas depasé 5MB";
             }
 
-            // Verify MYME type of the file
-            if (in_array($filetype, $allowed)) {
+            // verification du type de  MYME 
+            if (in_array($filetype, $permits)) {
                 $this->lien =   "upload/" . $filename . '-' . uniqid();
                 move_uploaded_file($_FILES["photo"]["tmp_name"],  $this->lien);
             } else {
-                $this->erreursHydrate['image'] = "Error: There was a problem uploading your file. Please try again.";
+                $this->erreursHydrate['image'] = "une erreure s'est produite..";
             }
         } else {
             $this->erreursHydrate['image'] = "une erreure s'est produite.";
