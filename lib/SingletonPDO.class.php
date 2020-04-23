@@ -6,15 +6,15 @@ class SingletonPDO
     private static $instance = null;
 
 
-    const DEFAULT_SQL_HOST = 'localhost';
-    const DEFAULT_SQL_DBN = 'mydb';
-    const DEFAULT_SQL_USER = 'root';
-    const DEFAULT_SQL_PASS = '';
-
     // const DEFAULT_SQL_HOST = 'localhost';
-    // const DEFAULT_SQL_DBN = 'e1995039';
-    // const DEFAULT_SQL_USER = 'e1995039';
-    // const DEFAULT_SQL_PASS = '81daxuBq8dNrrOoGZSy9';
+    // const DEFAULT_SQL_DBN = 'mydb';
+    // const DEFAULT_SQL_USER = 'root';
+    // const DEFAULT_SQL_PASS = '';
+
+    const DEFAULT_SQL_HOST = 'localhost';
+    const DEFAULT_SQL_DBN = 'e1995039';
+    const DEFAULT_SQL_USER = 'e1995039';
+    const DEFAULT_SQL_PASS = '81daxuBq8dNrrOoGZSy9';
 
 
     private function __construct()

@@ -133,7 +133,7 @@ class Annonce extends Entite
         try {
             $sPDO = SingletonPDO::getInstance();
             $oPDOStatement = $sPDO->prepare(
-                "SELECT souscategorie.id_sousCategorie, souscategorie.nom AS sousCategorie,categorie.idcategorie, categorie.nom AS categorie FROM `sousCategorie` INNER JOIN `categorie` ON souscategorie.id_categorie = categorie.idcategorie"
+                "SELECT sousCategorie.id_sousCategorie, sousCategorie.nom AS sousCategorie,categorie.idcategorie, categorie.nom AS categorie FROM `sousCategorie` INNER JOIN `categorie` ON sousCategorie.id_categorie = categorie.idcategorie"
             );
             $oPDOStatement->execute();
             if ($oPDOStatement->rowCount() == 0) {

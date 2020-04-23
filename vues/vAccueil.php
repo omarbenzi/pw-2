@@ -27,6 +27,7 @@
         <?php foreach ($annonces as $annonce) : ?>
             <article class="produit">
                 <h4 class="nom"><?= $annonce['titre'] ?></h4>
+                <?= ($annonce['sponsorise'] == 1) ? 'sponsorise' : ''   ?>
                 <p class="image">
                     <img src="images/logo.png">
                 </p>
@@ -36,7 +37,7 @@
                     <p class="ajouterAuFavoris" id="<?= $annonce['idarticle'] ?>"><span>Ajouter au favoris+</span></p>
                 <?php endif ?>
                 <div class="date">
-                    <p>Date: <span><?= $annonce['datePublication'] ?></span> sponsorisé</p>
+                    <p>Date: <span><?= $annonce['datePublication'] ?></span> </p>
                 </div>
 
             </article>

@@ -55,6 +55,7 @@ class ControleurUser extends Controleur
                if ($userInstance->DBgetConnexion($_POST['email'], $_POST['password'])) {
                     //new ControleurAccueil(); // retour à la page d'accueil commenté pour prevnir le revoi du formulaire par un rafrechissment de la page une fois connecté 
                     header("LOCATION: /pw2/pw-2/annonce"); // une solution! 
+                    //header("LOCATION: /pw-2/annonce"); pour webdev
                } else {
                     list($user['email'], $user['password']) = [$_POST['email'], $_POST['password']];
                     $vue = new Vue("UserConnexion", array(
@@ -83,7 +84,7 @@ class ControleurUser extends Controleur
           unset($_SESSION['admin']);
 
           // afficher la page connexion avec un message 
-          $this->connecter(' Vous avez été deconnecté');
+          $this->connecter($this->getUserInstance(), ' Vous avez été deconnecté');
      }
 
      /**
