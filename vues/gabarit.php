@@ -35,10 +35,12 @@
                     <li><a href="annonce?action=get&item=favoris&id=' .  $_SESSION['id']  . '">favoris</a></li>'  : '' ?>
 
                     <li><a href="#">Contact</a></li>
-                    kkkkkkkkkkkkk
+
                 </ul> <!-- .srt-menu -->
             </nav> <!-- nav -->
         </header>
+        <?= (isset($_SESSION['nom'])) ? '<h3>Bonjour: ' . $_SESSION['nom'] . ' </h3>' : ''   ?>
+
         <div id="contenu">
             <?php echo $contenu ?>
             <!-- contenu d'une vue spécifique -->
