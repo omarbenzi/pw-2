@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Annonce
+ * non utilisé
+ * 
+ * @package    
+ * @subpackage Modele
+ * @author     Ammar Otmane
+ */
 class Annonce extends Entite
 {
     protected $idarticle = NULL;

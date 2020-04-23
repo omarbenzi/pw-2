@@ -1,13 +1,17 @@
 <?php
 
+/**
+ * ControleurAnnonce
+ * gere les annonces
+ * 
+ * @package    
+ * @subpackage Controleur
+ * @author     Ammar Otmane
+ */
 class ControleurAnnonce
 {
     private $categories = [];
-
-
-
-
-
+    private static $reqPDOInstance = null;
     public function __construct()
     {
         try {
@@ -133,4 +137,14 @@ class ControleurAnnonce
             $vue = new Vue("Erreur", array('msgErreur' => $msgErreur));
         }
     }
+
+    private function getRequestesPDO()
+    {
+        if (is_null(self::$reqPDOInstance)) {
+            self::$reqPDOInstance = new RequetesPDO();
+        }
+        return self::$reqPDOInstance;
+    }
+    //$instance = $this->getRequestesPDO();
+
 }

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * ControleurAccueil
+ * gere la page d'accueil
+ * 
+ * @package    
+ * @subpackage Controleur
+ * @author     Ammar Otmane
+ */
 class ControleurAccueil
 {
 

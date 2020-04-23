@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * User
+ * gere les utilisateur 
+ * 
+ * @package    
+ * @subpackage Modele
+ * @author     Ammar Otmane
+ */
 class User extends Entite
 {
     protected $nom = NULL; // nommage identique au champ MySQL correspondant
