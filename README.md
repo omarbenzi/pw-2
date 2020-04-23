@@ -1,4 +1,4 @@
-# projet web  
+# projet web
 ### Auteurs: **Ammar, Otmane**
 ### Lien: **https://e1995039.webdev.cmaisonneuve.qc.ca/pw-2/**
 ### fonctionnalité  
