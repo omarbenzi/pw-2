@@ -138,7 +138,7 @@ class ControleurUser extends Controleur
      /**
       * msgErreur
       *cette fonction affiche la vu erreur pour catchée
-      * @param  string $admin
+      * @param  string $msgErreur
       *
       * @return void
       */
@@ -149,7 +149,7 @@ class ControleurUser extends Controleur
      /**
       * encrypteMdp
       *
-      * @param  array $admin
+      * @param  array $pwd
       *
       * @return array
       */
@@ -163,7 +163,7 @@ class ControleurUser extends Controleur
      /**
       * getVilles
       *cette fonction recupere les ville de la base de donnee
-      * @param  array $admin
+      * @param  
       *
       * @return array
       */
@@ -186,17 +186,16 @@ class ControleurUser extends Controleur
      }
 
      /**
-      * getVilles
+      * getConnexion
       *cette fonction recupere verifie la connexion
-      * @param  array $admin
+      * @param  string $email
+      * @param  string $mdp
       *
       * @return array
       */
      public function getConnexion($email, $mdp)
      {
           try {
-
-
                $sPDO = SingletonPDO::getInstance();
                $oPDOStatement = $sPDO->prepare(
                     "SELECT password,admin,nom,iduser 

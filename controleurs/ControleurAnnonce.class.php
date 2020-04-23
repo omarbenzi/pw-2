@@ -11,7 +11,6 @@
 class ControleurAnnonce
 {
     private $categories = [];
-    private static $reqPDOInstance = null;
     public function __construct()
     {
         try {
@@ -43,9 +42,8 @@ class ControleurAnnonce
     private function getAnnoncesSponsorises()
     {
         try {
-            $reqPDO = new RequetesPDO();
-            $annoncesSponsoises = $reqPDO->getAnnoncesSponsorises();
-            $categories = $reqPDO->getCategories();
+            $annoncesSponsoises = $this->DBgetAnnoncesSponsorises();
+            $categories = $this->getCategories();
             $this->categories = $this->arrangeCategorie($categories);
             $annoncesSponsoises = array_map(array($this, 'arrangeDate'), $annoncesSponsoises);
             $vue = new Vue("Accueil", array(
@@ -64,10 +62,9 @@ class ControleurAnnonce
     private function getAnnonceByCategorys()
     {
         try {
-            $reqPDO = new RequetesPDO();
-            $annonces = $reqPDO->getAnnoncebySousCategory($this->id);
+            $annonces = $this->getAnnoncebySousCategory($this->id);
             $annonces = array_map(array($this, 'arrangeDate'), $annonces);
-            $categories = $reqPDO->getCategories();
+            $categories = $this->getCategories();
             $this->categories = $this->arrangeCategorie($categories);
             $vue = new Vue("Accueil", array(
                 'annonces' => $annonces,
@@ -138,13 +135,88 @@ class ControleurAnnonce
         }
     }
 
-    private function getRequestesPDO()
+    public function DBgetAnnoncesSponsorises()
     {
-        if (is_null(self::$reqPDOInstance)) {
-            self::$reqPDOInstance = new RequetesPDO();
+        try {
+            $sPDO = SingletonPDO::getInstance();
+            $oPDOStatement = $sPDO->prepare(
+                "SELECT * FROM annonce WHERE annonce.sponsorise = (1) "
+            );
+            $oPDOStatement->execute();
+            if ($oPDOStatement->rowCount() == 0) {
+                throw new exception('Aucun résultat..', 3);
+            }
+            $autuers = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
+            return $autuers;
+        } catch (PDOException $e) {
+            throw $e;
         }
-        return self::$reqPDOInstance;
     }
-    //$instance = $this->getRequestesPDO();
-
+    public function getCategories()
+    {
+        try {
+            $sPDO = SingletonPDO::getInstance();
+            $oPDOStatement = $sPDO->prepare(
+                "SELECT souscategorie.id_sousCategorie, souscategorie.nom AS sousCategorie,categorie.idcategorie, categorie.nom AS categorie FROM `souscategorie` INNER JOIN `categorie` ON souscategorie.id_categorie = categorie.idcategorie"
+            );
+            $oPDOStatement->execute();
+            if ($oPDOStatement->rowCount() == 0) {
+                throw new exception('Aucun résultat..', 3);
+            }
+            $catego = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
+            return $catego;
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+    /**
+     * getAnnoncebyId
+     *cette fonction recupere une annonce par id
+     * @param  int $id
+     *
+     * @return array
+     */
+    public function getAnnoncebyId($id)
+    {
+        try {
+            $sPDO = SingletonPDO::getInstance();
+            $oPDOStatement = $sPDO->prepare(
+                "SELECT * FROM annonce WHERE annonce.idarticle = :id OR annonce.sous-categorie_idsous-categorie = :id"
+            );
+            $oPDOStatement->bindValue(":id", $id, PDO::PARAM_INT);
+            $oPDOStatement->execute();
+            if ($oPDOStatement->rowCount() == 0) {
+                throw new exception('Aucun résultat..');
+            }
+            $autuer = $oPDOStatement->fetch();
+            return $autuer;
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
+    /**
+     * getAnnoncebySousCategory
+     *cette fonction recupere les annonce par id Categorie
+     * @param  int $id
+     *
+     * @return array
+     */
+    public function getAnnoncebySousCategory($id)
+    {
+        try {
+            $sPDO = SingletonPDO::getInstance();
+            $oPDOStatement = $sPDO->prepare(
+                "SELECT * FROM annonce WHERE annonce.sous_categorie_id = :id"
+            );
+            $oPDOStatement->bindValue(":id", $id, PDO::PARAM_INT);
+            $oPDOStatement->execute();
+            if ($oPDOStatement->rowCount() == 0) {
+                throw new exception('Aucun résultat..');
+            }
+            $annonces = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
+            return $annonces;
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
 }
