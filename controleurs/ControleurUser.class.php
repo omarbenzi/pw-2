@@ -4,6 +4,7 @@ class ControleurUser extends Controleur
      private $item    = "";
      private $action  = "";
      private $id      = "";
+     private $userInstance = null;
 
 
 
@@ -26,7 +27,7 @@ class ControleurUser extends Controleur
                          $action = $this->action;
                          if ($action === "get") $item .= "s";
                          $methode = $action . $item;
-                         $this->$methode();
+                         $this->$methode($this->getUserInstance());
                          exit;
                     }
                     if ($this->action === "deconnecter") {
@@ -38,9 +39,9 @@ class ControleurUser extends Controleur
                throw new exception("url non invalide");
                // si l'utilisateur veut s'inscrire 
           } elseif (isset($_POST['action']) && $_POST['action'] == 'ajouter' && isset($_POST['item']) && $_POST['item'] == 'user') {
-               $this->ajouterUser();
+               $this->ajouterUser($this->getUserInstance());
           } else {
-               $this->connecter();
+               $this->connecter($this->getUserInstance());
           }
      }
      /**
@@ -48,11 +49,11 @@ class ControleurUser extends Controleur
       *
       * @return void
       */
-     private function connecter($msg = false)
+     private function connecter($userInstance, $msg = false)
      {
           if (isset($_POST['Envoyer'])) {
-               if ($this->DBgetConnexion($_POST['email'], $_POST['password'])) {
-                    new ControleurAnnonce();
+               if ($userInstance->DBgetConnexion($_POST['email'], $_POST['password'])) {
+                    new ControleurAnnonce(); // retour à la page d'accueil
                } else {
                     list($user['email'], $user['password']) = [$_POST['email'], $_POST['password']];
                     $vue = new Vue("UserConnexion", array(
@@ -89,25 +90,24 @@ class ControleurUser extends Controleur
       *
       * @return void
       */
-     private function ajouterUser()
+     private function ajouterUser($userInstance)
      {
           try {
 
                if (isset($_POST['envoyer'])) {
-                    $villes = $this->DBgetVilles();
+                    $villes = $userInstance->DBgetVilles();
                     $erreursHydrate = null;
                     $erreurMysql = null;
-                    $oUser = new User();
-                    $erreursHydrate = $oUser->hydrate(["nom" => $_POST['nom'], "password" => $_POST['password'], "email" => $_POST['email'], 'ville_idVille' => $_POST['ville_idVille'], 'passwordConfirm' => $_POST['passwordConfirm']]);
+                    $erreursHydrate = $userInstance->hydrate(["nom" => $_POST['nom'], "password" => $_POST['password'], "email" => $_POST['email'], 'ville_idVille' => $_POST['ville_idVille'], 'passwordConfirm' => $_POST['passwordConfirm']]);
                     if (count($erreursHydrate) !== 0) { // si='il y a pas d'erreur d'hydratation 
-                         $user = $oUser->getItem();
+                         $user = $userInstance->getItem();
                          $vue = new Vue("UserAjoutUser", array(
                               'user' => $user,
                               'villes' => $villes,
                               'erreursHydrate' => $erreursHydrate,
                          ), 'gabarit');
                     } else {
-                         $user = $oUser->getItem();
+                         $user = $userInstance->getItem();
                          $user = $this->encrypteMdp($user);
                          $reqPDO = new RequetesPDO();
                          if ($erreurMysql = $reqPDO->ajouterItem('user', $user) == true) { // l'ajout du dans la base de donnees 
@@ -124,7 +124,7 @@ class ControleurUser extends Controleur
                          }
                     }
                } else {
-                    $villes = $this->DBgetVilles();
+                    $villes = $userInstance->DBgetVilles();
                     $vue = new Vue("UserAjoutUser", array(
                          'villes' => $villes,
                          'user' => null,
@@ -158,5 +158,20 @@ class ControleurUser extends Controleur
      {
           $pwd['password'] = password_hash($pwd['password'], PASSWORD_DEFAULT);
           return $pwd;
+     }
+     /**
+      * getAnnonceInstance
+      * 
+      * 
+      * @param  
+      *
+      * @return instance $this->annonceInstance
+      */
+     private function getUserInstance()
+     {
+          if ($this->userInstance !== null) {
+               return $this->userInstance;
+          }
+          return $this->userInstance = new User();
      }
 }

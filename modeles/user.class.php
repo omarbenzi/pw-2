@@ -134,7 +134,7 @@ class User extends Entite
         try {
             $sPDO = SingletonPDO::getInstance();
             $oPDOStatement = $sPDO->prepare(
-                "SELECT password,admin,nom,iduser 
+                "SELECT password ,nom,iduser 
                   FROM user WHERE email = :email"
             );
             $oPDOStatement->bindValue(":email", $email, PDO::PARAM_STR);
@@ -147,7 +147,7 @@ class User extends Entite
                 $_SESSION['nom'] = $mdp_DB['nom'];
                 $_SESSION['id'] = $mdp_DB['iduser'];
                 if ($mdp_DB['admin'] == 1) {
-                    $_SESSION['admin'] = true;
+                    $_SESSION['admin'] = true; // si admin 
                 }
                 return true;
             }
