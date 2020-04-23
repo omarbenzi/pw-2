@@ -18,7 +18,7 @@ class ControleurUser extends Controleur
           if (isset($_SESSION['id'])) {
 
                $this->item   = isset($_GET['item'])   ? $_GET['item']   : "user";
-               $this->action = isset($_GET['action']) ? $_GET['action'] : "get";
+               $this->action = isset($_GET['action']) ? $_GET['action'] : "";
                $this->id     = isset($_GET['id'])     ? $_GET['id']     : "";
 
                if (in_array($this->item, ["user"])) {
@@ -53,7 +53,8 @@ class ControleurUser extends Controleur
      {
           if (isset($_POST['Envoyer'])) {
                if ($userInstance->DBgetConnexion($_POST['email'], $_POST['password'])) {
-                    new ControleurAnnonce(); // retour à la page d'accueil
+                    //new ControleurAccueil(); // retour à la page d'accueil commenté pour prevnir le revoi du formulaire par un rafrechissment de la page une fois connecté 
+                    header("LOCATION: /pw2/pw-2/annonce"); // une solution! 
                } else {
                     list($user['email'], $user['password']) = [$_POST['email'], $_POST['password']];
                     $vue = new Vue("UserConnexion", array(

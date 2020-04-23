@@ -36,7 +36,7 @@
                     <p class="ajouterAuFavoris" id="<?= $annonce['idarticle'] ?>"><span>Ajouter au favoris+</span></p>
                 <?php endif ?>
                 <div class="date">
-                    <p>Date: <span><?= $annonce['datePublication'] ?></span></p>
+                    <p>Date: <span><?= $annonce['datePublication'] ?></span> sponsorisé</p>
                 </div>
 
             </article>

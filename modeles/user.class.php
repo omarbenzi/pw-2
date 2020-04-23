@@ -134,7 +134,7 @@ class User extends Entite
         try {
             $sPDO = SingletonPDO::getInstance();
             $oPDOStatement = $sPDO->prepare(
-                "SELECT password ,nom,iduser 
+                "SELECT password ,nom,iduser,admin 
                   FROM user WHERE email = :email"
             );
             $oPDOStatement->bindValue(":email", $email, PDO::PARAM_STR);
