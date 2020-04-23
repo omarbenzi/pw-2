@@ -16,7 +16,7 @@ class ControleurUser extends Controleur
 
           if (isset($_SESSION['id'])) {
 
-               $this->item   = isset($_GET['item'])   ? $_GET['item']   : "livre";
+               $this->item   = isset($_GET['item'])   ? $_GET['item']   : "user";
                $this->action = isset($_GET['action']) ? $_GET['action'] : "get";
                $this->id     = isset($_GET['id'])     ? $_GET['id']     : "";
 
@@ -36,7 +36,7 @@ class ControleurUser extends Controleur
                     throw new exception("Action invalide");
                }
                throw new exception("url non invalide");
-               // si l'utilisateur veut se connecter 
+               // si l'utilisateur veut s'inscrire 
           } elseif (isset($_POST['action']) && $_POST['action'] == 'ajouter' && isset($_POST['item']) && $_POST['item'] == 'user') {
                $this->ajouterUser();
           } else {
@@ -112,8 +112,8 @@ class ControleurUser extends Controleur
                          $reqPDO = new RequetesPDO();
                          if ($erreurMysql = $reqPDO->ajouterItem('user', $user) == true) { // l'ajout du dans la base de donnees 
                               $vue = new Vue("UserConnexion", array(
-                                   '' => null,
-                                   'msgErreur' => 'Votre compte a été crée',
+                                   'user' => $user,
+                                   'msg' => 'Votre compte a été crée veuillez vous vous connecter',
                               ), 'gabarit'); // redirection vers a la page de connexion
                          } else { // ajout non effectué 
                               $vue = new Vue("UserAjoutUser", array(

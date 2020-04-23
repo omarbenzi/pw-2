@@ -26,7 +26,7 @@
                     </div>
                     <div class="div">
                         <h5>Password</h5>
-                        <input type="password" name="password" class="input" <?= (isset($user['password'])) ? $user['password'] : null ?>>
+                        <input type="password" name="password" class="input">
                     </div>
                 </div>
                 <input type="hidden" name="Envoyer" value="1">
