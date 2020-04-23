@@ -8,5 +8,7 @@
   - utilisateur connecté ou pas à son compte pour naviger dans les annonces par les sous-categories   
   - un utilisateur peut se cree un compte  
   - un utilisateur peut se connecter     
-  - un utilisateur peut se deconnecter    
+  - un utilisateur peut se deconnecter
+  - bouton ajouter au favorie apparait lorsque un utilisateur est connecté
+  - un message sponsorise est affiché sur les annonce qui le sont
 
