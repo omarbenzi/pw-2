@@ -54,7 +54,7 @@
                     </div>
                     <div class="div">
                         <h5>Confirmation de mot de passe</h5>
-                        <p class="erreur">&nbsp; <?= (isset($erreursHydrate['passwordConfirm'])) ? $erreursHydrate['passwordConfirm'] : null ?></p>
+                        <p class="erreur errConfirmation">&nbsp; <?= (isset($erreursHydrate['passwordConfirm'])) ? $erreursHydrate['passwordConfirm'] : null ?></p>
                         <input type="password" class="input" name="passwordConfirm">
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 
 <div class="main">
     <div class="left-side">
-        <h2>CATÃ‰GORIE</h2>
+        <h2>CATÉGORIE</h2>
         <div id="accordion">
 
             <?php foreach ($categories as $categorie => $details) : ?>
@@ -27,7 +27,7 @@
         <?php foreach ($annonces as $annonce) : ?>
             <article class="produit">
                 <h4 class="nom"><?= $annonce['titre'] ?></h4>
-                <?= ($annonce['sponsorise'] == 1) ? 'sponsorise' : ''   ?>
+                <?= ($annonce['sponsorise'] ==1 ) ? 'sponsorise': ''   ?>
                 <p class="image">
                     <img src="images/logo.png">
                 </p>

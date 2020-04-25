@@ -2,7 +2,7 @@
 
 /**
  * Annonce
- * non utilisÃ©
+ * non utilisé
  * 
  * @package    
  * @subpackage Modele
@@ -29,7 +29,7 @@ class Annonce extends Entite
     protected function setTitre($titre = NULL)
     {
         if (trim($titre) === "") {
-            $this->erreursHydrate['titre'] = "Au moins un caractÃ¨re.";
+            $this->erreursHydrate['titre'] = "Au moins un caractère.";
         }
         $this->titre = trim($titre);
     }
@@ -37,14 +37,14 @@ class Annonce extends Entite
     protected function setDescription($description = NULL)
     {
         if (trim($description) === "") {
-            $this->erreursHydrate['description'] = "Au moins un caractÃ¨re.";
+            $this->erreursHydrate['description'] = "Au moins un caractère.";
         }
         $this->description = trim($description);
     }
     protected function setPrix($prix = NULL)
     {
         if (trim($prix) === "") {
-            $this->erreursHydrate['prix'] = "Au moins un caractÃ¨re.";
+            $this->erreursHydrate['prix'] = "Au moins un caractère.";
         }
         $this->prix = trim($prix);
     }
@@ -62,13 +62,13 @@ class Annonce extends Entite
             // verification de l'extention 
             $ext = pathinfo($filename, PATHINFO_EXTENSION);
             if (!array_key_exists($ext, $permits)) {
-                $this->erreursHydrate['image'] = "extention non autorisÃ©e";
+                $this->erreursHydrate['image'] = "extention non autorisée";
             }
 
             //  verification de la taile 
             $maxsize = 5 * 1024 * 1024;
             if ($filesize > $maxsize) {
-                $this->erreursHydrate['image'] = "la taille de l'image ne doit pas depasÃ© 5MB";
+                $this->erreursHydrate['image'] = "la taille de l'image ne doit pas depasé 5MB";
             }
 
             // verification du type de  MYME 
@@ -111,7 +111,7 @@ class Annonce extends Entite
             );
             $oPDOStatement->execute();
             if ($oPDOStatement->rowCount() == 0) {
-                throw new exception('Aucun rÃ©sultat..');
+                throw new exception('Aucun résultat..');
             }
             $autuers = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
             return $autuers;
@@ -137,7 +137,7 @@ class Annonce extends Entite
             );
             $oPDOStatement->execute();
             if ($oPDOStatement->rowCount() == 0) {
-                throw new exception('Aucun rÃ©sultat..');
+                throw new exception('Aucun résultat..');
             }
             $catego = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
             return $catego;
@@ -162,7 +162,7 @@ class Annonce extends Entite
             $oPDOStatement->bindValue(":id", $id, PDO::PARAM_INT);
             $oPDOStatement->execute();
             if ($oPDOStatement->rowCount() == 0) {
-                throw new exception('Aucun rÃ©sultat..');
+                throw new exception('Aucun résultat..');
             }
             $autuer = $oPDOStatement->fetch();
             return $autuer;
@@ -187,7 +187,7 @@ class Annonce extends Entite
             $oPDOStatement->bindValue(":id", $id, PDO::PARAM_INT);
             $oPDOStatement->execute();
             if ($oPDOStatement->rowCount() == 0) {
-                throw new exception('Aucun rÃ©sultat..');
+                throw new exception('Aucun résultat..');
             }
             $annonces = $oPDOStatement->fetchAll(PDO::FETCH_ASSOC);
             return $annonces;
