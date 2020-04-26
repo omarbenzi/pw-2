@@ -9,7 +9,7 @@ class ControleurUser extends Controleur
 
 
      /**
-      * Contrôle de l'URL pour exécuter l'action qui en découle
+      * ContrÃ©le de l'URL pour exÃ©cuter l'action qui en dÃ©coule
       *
       */
      public function __construct()
@@ -53,7 +53,7 @@ class ControleurUser extends Controleur
      {
           if (isset($_POST['Envoyer'])) {
                if ($userInstance->DBgetConnexion($_POST['email'], $_POST['password'])) {
-                    //new ControleurAccueil(); // retour à la page d'accueil commenté pour prevnir le revoi du formulaire par un rafrechissment de la page une fois connecté 
+                    //new ControleurAccueil(); // retour Ã© la page d'accueil commentÃ© pour prevnir le revoi du formulaire par un rafrechissment de la page une fois connectÃ© 
                     //header("LOCATION: /pw2/pw-2/annonce"); // une solution! 
                     header("LOCATION: /pw-2/annonce"); //pour webdev
                } else {
@@ -84,7 +84,7 @@ class ControleurUser extends Controleur
           unset($_SESSION['admin']);
 
           // afficher la page connexion avec un message 
-          $this->connecter($this->getUserInstance(), ' Vous avez été deconnecté');
+          $this->connecter($this->getUserInstance(), ' Vous avez Ã©tÃ© deconnectÃ©');
      }
 
      /**
@@ -115,9 +115,9 @@ class ControleurUser extends Controleur
                          if ($erreurMysql = $reqPDO->ajouterItem('user', $user) == true) { // l'ajout du dans la base de donnees 
                               $vue = new Vue("UserConnexion", array(
                                    'user' => $user,
-                                   'msg' => 'Votre compte a été crée veuillez vous vous connecter',
+                                   'msg' => 'Votre compte a Ã©tÃ© crÃ©e veuillez vous vous connecter',
                               ), 'gabarit'); // redirection vers a la page de connexion
-                         } else { // ajout non effectué 
+                         } else { // ajout non effectuÃ© 
                               $vue = new Vue("UserAjoutUser", array(
                                    "erreurMysql" => $erreurMysql,
                                    'villes' => $villes,
@@ -140,7 +140,7 @@ class ControleurUser extends Controleur
 
      /**
       * msgErreur
-      *cette fonction affiche la vu erreur pour les catchée
+      *cette fonction affiche la vu erreur pour les catchÃ©e
       * @param  string $msgErreur
       *
       * @return void
